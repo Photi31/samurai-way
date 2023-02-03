@@ -1,0 +1,18 @@
+.nav {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    grid-area: n;
+    font-size: 30px;
+    background-color: cadetblue;
+}
+
+.nav a {
+    color: white;
+    font-weight: normal;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    color: greenyellow;
+}
