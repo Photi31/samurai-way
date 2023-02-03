@@ -3,6 +3,8 @@ import './MainImg.css';
 
 export function MainImg () {
     return (
-        <img alt={'nature'} src="https://icocnews.ru/wp-content/uploads/2015/09/priroda.jpg"/>
+        <div className={'main__img'}>
+
+        </div>
     )
 }

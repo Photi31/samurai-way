@@ -1,4 +1,5 @@
 .main {
     grid-area: m;
-    background-color: cornsilk;
+    /*background-color: cornsilk;*/
+    background-color: #EFE2BA;
 }
