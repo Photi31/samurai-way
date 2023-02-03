@@ -5,7 +5,7 @@
     grid-area: n;
     font-size: 30px;
     /*background-color: cadetblue;*/
-    background-color: #DA7B93;
+    background-color: #f684a1;
 }
 
 .nav a {
@@ -15,5 +15,5 @@
 }
 
 .nav a:hover {
-    color: #282c34;
+    color: #3b4354;
 }

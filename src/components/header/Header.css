@@ -1,11 +1,10 @@
 .header {
     grid-area: h;
+    height: 100px;
     /*background-color: #282c34;*/
     background-color: #112D32;
 }
 
 .logo {
-    height: 100px;
-    pointer-events: none;
-    background-color: #282c34;
+    height: 100%;
 }

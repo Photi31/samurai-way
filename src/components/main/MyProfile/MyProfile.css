@@ -3,13 +3,26 @@
     display: flex;
 }
 
-.avatar {
+.profile__avatar {
     height: 150px;
     width: 150px;
     border-radius: 50%;
 }
 
-.data {
+.profile__data {
     margin-left: 40px;
+}
 
+.profile__title {
+    font-size: 24px;
+    line-height: 28px;
+    margin: 0;
+}
+
+.profile__descr {
+    margin-top: 30px;
+}
+
+.profile__descr span {
+    font-weight: bold;
 }

@@ -1,0 +1,53 @@
+.myPost {
+    margin: 20px;
+}
+
+.myPost h3 {
+    display: block;
+    width: 150px;
+    text-align: center;
+}
+
+.myPost div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.myPost pre {
+    white-space: pre-line;
+    margin: 0;
+}
+
+.myPost textarea {
+    width: 800px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 24px;
+    resize: none;
+}
+
+.myPost textarea::-webkit-scrollbar {
+    visibility: hidden;
+    width: 0px;
+}
+
+.myPost textarea:focus {
+    outline: none;
+}
+
+.myPost button {
+    height: 45px;
+    width: 110px;
+    display: block;
+    border: none;
+    border-radius: 10px;
+    background-color: #c56bf3;
+    color: #EFE2BA;
+    font-size: 24px;
+    line-height: 24px;
+}
