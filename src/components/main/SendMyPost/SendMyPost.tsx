@@ -1,13 +1,13 @@
 import React from 'react';
-import './SendMyPost.css';
+import s from './SendMyPost.module.css';
 
 export function SendMyPost () {
     return(
-        <div className={'myPost'}>
+        <div className={s.myPost}>
             <h3>My posts</h3>
             <div>
                 <pre>
-                    <textarea placeholder={'Write your post...'}></textarea>
+                    <input placeholder={'Write your post...'}></input>
                 </pre>
                 <button>Send</button>
             </div>

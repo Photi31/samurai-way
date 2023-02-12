@@ -17,3 +17,8 @@
 .nav a:hover {
     color: #3b4354;
 }
+
+.nav .activeLink {
+    color: #3b4354;
+
+}

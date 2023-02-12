@@ -21,7 +21,7 @@
     margin: 0;
 }
 
-.myPost textarea {
+.myPost input {
     width: 800px;
     border: none;
     border-radius: 10px;
@@ -31,12 +31,12 @@
     resize: none;
 }
 
-.myPost textarea::-webkit-scrollbar {
+.myPost input::-webkit-scrollbar {
     visibility: hidden;
     width: 0px;
 }
 
-.myPost textarea:focus {
+.myPost input:focus {
     outline: none;
 }
 

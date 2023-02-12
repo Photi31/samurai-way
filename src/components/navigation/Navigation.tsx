@@ -1,11 +1,12 @@
 import React from 'react';
-import './Navigation.css';
+import s from './Navigation.module.css';
+import {NavLink} from "react-router-dom";
 
 export function Navigation () {
     return (
-        <nav className="nav">
-            <a href='#s'>Profile</a>
-            <a href='#s'>Messages</a>
+        <nav className={s.nav}>
+            <NavLink to='/main' activeClassName={s.activeLink}>Profile</NavLink>
+            <NavLink to='/messages' activeClassName={s.activeLink}>Messages</NavLink>
             <a href='#s'>News</a>
             <a href='#s'>Music</a>
             <a href='#s'>Settings</a>

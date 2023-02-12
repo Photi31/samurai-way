@@ -1,9 +1,9 @@
 import React from 'react';
-import './MainImg.css';
+import s from './MainImg.module.css';
 
 export function MainImg () {
     return (
-        <div className={'main__img'}>
+        <div className={s.main__img}>
 
         </div>
     )
