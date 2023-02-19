@@ -7,7 +7,7 @@ export function SendMyPost () {
             <h3>My posts</h3>
             <div>
                 <pre>
-                    <input placeholder={'Write your post...'}></input>
+                    <textarea placeholder={'Write your post...'}></textarea>
                 </pre>
                 <button>Send</button>
             </div>

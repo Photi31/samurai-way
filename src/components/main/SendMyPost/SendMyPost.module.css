@@ -9,6 +9,7 @@
 }
 
 .myPost div {
+    margin-top: 10px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -21,7 +22,7 @@
     margin: 0;
 }
 
-.myPost input {
+.myPost textarea {
     width: 800px;
     border: none;
     border-radius: 10px;
@@ -31,12 +32,12 @@
     resize: none;
 }
 
-.myPost input::-webkit-scrollbar {
+.myPost textarea::-webkit-scrollbar {
     visibility: hidden;
     width: 0px;
 }
 
-.myPost input:focus {
+.myPost textarea:focus {
     outline: none;
 }
 

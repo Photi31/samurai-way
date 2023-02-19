@@ -5,20 +5,23 @@ import {MyProfile} from "./MyProfile/MyProfile";
 import {SendMyPost} from "./SendMyPost/SendMyPost";
 import {Posts} from "./Posts/Posts";
 
-export function Main () {
+type MainPropsType = {
+    state: Array<{
+        _id: number
+        title: string
+        descr: string
+    }>
 
-    const posts = [
-        {_id: 1, title: 'Post 1', descr: "This is first post about me..."},
-        {_id: 2, title: 'Post 2', descr: "This is post about my family..."},
-        {_id: 3, title: 'Post 3', descr: "This is post about my jobs..."},
-    ]
+}
+
+export function Main (props: MainPropsType) {
 
     return (
         <main className={s.main}>
             <MainImg/>
             <MyProfile/>
             <SendMyPost/>
-            <Posts posts={posts}/>
+            <Posts posts={props.state}/>
         </main>
     )
 }

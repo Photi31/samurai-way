@@ -2,7 +2,7 @@ import React from 'react';
 import s from './DialogsList.module.css'
 
 type DialogsListPropsType = {
-    dialogs: string[]
+    dialogsPerson: string[]
 }
 
 export const DialogsList = (props: DialogsListPropsType) => {
@@ -10,7 +10,7 @@ export const DialogsList = (props: DialogsListPropsType) => {
         <div>
             <h3 className={s.title}>dialogs</h3>
             <ul className={s.list}>
-                {props.dialogs.map(el => {
+                {props.dialogsPerson.map(el => {
                     return <li>{el}</li>
                 })}
             </ul>
