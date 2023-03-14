@@ -5,8 +5,14 @@ import {Dialog} from "./Dialog";
 
 type MessagesPropsType = {
     state: {
-        dialogsPerson: string[]
-        messages: string[]
+        dialogsPerson: {
+            _id: string
+            name: string
+        }[]
+        messages: {
+            _id: string
+            message: string
+        }[]
     }
 }
 

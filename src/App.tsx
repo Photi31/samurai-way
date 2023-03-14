@@ -5,21 +5,12 @@ import {Navigation} from "./components/navigation/Navigation";
 import {Main} from "./components/main/Main";
 import {Messages} from "./components/main/Messages/Messages";
 import {BrowserRouter, Route} from "react-router-dom";
+import {StatePropsType, updateNewPostText} from "./state";
 
-type AppPropsType = {
-    state: {
-        posts:
-            {
-                _id: number
-                title: string
-                descr: string
-            } []
-
-        dialogs: {
-            dialogsPerson: Array<string>
-            messages: Array<string>
-        }
-    }
+export type AppPropsType = {
+    state: StatePropsType
+    addPost: (textNewPost: string) => void
+    updateNewPostText: (newTextInArea: string) => void
 }
 
 function App(props: AppPropsType) {
@@ -31,9 +22,11 @@ function App(props: AppPropsType) {
             <Navigation/>
             <div>
                 <Route path={'/main'}
-                       render={() => <Main state={props.state.posts}/>}/>
+                       render={() => <Main state={props.state.profilePage}
+                                           addPost={props.addPost}
+                                           updateNewPostText={updateNewPostText}/>}/>
                 <Route path={'/messages'}
-                       render={() => <Messages state={props.state.dialogs}/>}/>
+                       render={() => <Messages state={props.state.dialogsPage.dialogs}/>}/>
             </div>
         </div>
       </BrowserRouter>

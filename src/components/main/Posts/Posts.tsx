@@ -2,7 +2,7 @@ import React from 'react';
 import s from './Posts.module.css';
 
 type PostType = {
-    _id: number
+    _id: string
     title: string
     descr: string
 }

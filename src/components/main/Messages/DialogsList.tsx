@@ -2,7 +2,10 @@ import React from 'react';
 import s from './DialogsList.module.css'
 
 type DialogsListPropsType = {
-    dialogsPerson: string[]
+    dialogsPerson: {
+        _id: string
+        name: string
+    }[]
 }
 
 export const DialogsList = (props: DialogsListPropsType) => {
