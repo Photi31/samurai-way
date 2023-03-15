@@ -1,10 +1,10 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import s from './SendMyPost.module.css';
+import actions from "redux-form/lib/actions";
 
 type SendMyPostPropsType = {
-    addPost: (textNewPost: string) => void
+    dispatch: (action: { }) => void
     textInArea: string
-    updateNewPostText: (newTextInArea: string) => void
 }
 
 export function SendMyPost(props: SendMyPostPropsType) {
@@ -13,12 +13,12 @@ export function SendMyPost(props: SendMyPostPropsType) {
 
     const onClickHandler = () => {
         let textNewPost = newPostElement.current?.value
-        if (textNewPost) props.addPost(textNewPost)
+        if (textNewPost) props.dispatch({type: 'ADD-POST', textNewPost: textNewPost})
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newTextInArea = e.currentTarget.value
-        props.updateNewPostText(newTextInArea)
+        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newTextInArea: newTextInArea})
     }
 
     return (

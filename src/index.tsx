@@ -2,19 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import {addPost, state, StatePropsType, subscribe, updateNewPostText} from './state'
+import {store, StorePropsType} from './state'
 
-let rerenderEntireTree = (state: StatePropsType) => {
+let rerenderEntireTree = (store: StorePropsType) => {
     ReactDOM.render(
-        <App state={state}
-             addPost={addPost}
-             updateNewPostText={updateNewPostText}/>,
+        <App state={store.getState()}
+             dispatch={store.dispatch.bind(store)}/>,
         document.getElementById('root')
     )
 }
 
-rerenderEntireTree(state)
+rerenderEntireTree(store.getState())
 
-subscribe(()=>rerenderEntireTree(state))
+store.subscribe(()=>rerenderEntireTree(store.getState()))
 
 

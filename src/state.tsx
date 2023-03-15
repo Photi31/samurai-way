@@ -1,9 +1,13 @@
 import {v1} from "uuid";
 
-let rerenderEntireTree = (state: StatePropsType) => {}
-export const subscribe = (observer: () => void) => {
-    rerenderEntireTree = observer
+export type StorePropsType = {
+    _state: StatePropsType
+    getState: () => StatePropsType
+    _callSubscriber: (state: StatePropsType) => void
+    subscribe: (observer: () => void) => void
+    dispatch: (action: AddPostActionType | UpdateNewPostTextActionType) => void
 }
+
 export type StatePropsType = {
     profilePage: {
         posts: {
@@ -27,53 +31,71 @@ export type StatePropsType = {
     }
     sidebar: {}
 }
+type AddPostActionType = {
+    type: 'ADD-POST'
+    textNewPost: string
+}
+type UpdateNewPostTextActionType = {
+    type: 'ADD-POST'
+    newTextInArea: string
+}
 
-export const state = {
-    profilePage: {
-        posts: [
-            {_id: v1(), title: 'Post 1', descr: "This is first post about me..."},
-            {_id: v1(), title: 'Post 2', descr: "This is post about my family..."},
-            {_id: v1(), title: 'Post 3', descr: "This is post about my jobs..."},
-        ],
-        textInArea: ''
-    },
-    dialogsPage: {
-        dialogs: {
-            dialogsPerson: [
-                {_id: v1(), name: 'Mama'},
-                {_id: v1(), name: 'Alex'},
-                {_id: v1(), name: 'Dima'},
-                {_id: v1(), name: 'Leha'},
-                {_id: v1(), name: 'Sasha'},
-                {_id: v1(), name: 'IT-Incubator'}
+export const store: StorePropsType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {_id: v1(), title: 'Post 1', descr: "This is first post about me..."},
+                {_id: v1(), title: 'Post 2', descr: "This is post about my family..."},
+                {_id: v1(), title: 'Post 3', descr: "This is post about my jobs..."},
             ],
-            messages: [
-                {_id: v1(), message: 'first message'},
-                {_id: v1(), message: 'second message'},
-                {_id: v1(), message: 'third message'},
-                {_id: v1(), message: 'first message'},
-                {_id: v1(), message: 'second message'},
-                {_id: v1(), message: 'third message'},
-                {_id: v1(), message: 'Sasha'}
-            ]
-        }
+            textInArea: ''
+        },
+        dialogsPage: {
+            dialogs: {
+                dialogsPerson: [
+                    {_id: v1(), name: 'Mama'},
+                    {_id: v1(), name: 'Alex'},
+                    {_id: v1(), name: 'Dima'},
+                    {_id: v1(), name: 'Leha'},
+                    {_id: v1(), name: 'Sasha'},
+                    {_id: v1(), name: 'IT-Incubator'}
+                ],
+                messages: [
+                    {_id: v1(), message: 'first message'},
+                    {_id: v1(), message: 'second message'},
+                    {_id: v1(), message: 'third message'},
+                    {_id: v1(), message: 'first message'},
+                    {_id: v1(), message: 'second message'},
+                    {_id: v1(), message: 'third message'},
+                    {_id: v1(), message: 'Sasha'}
+                ]
+            }
+        },
+        sidebar: {}
     },
-    sidebar: {}
-}
-
-export const addPost = (textNewPost: string) => {
-    let newPost = {
-        _id: v1(),
-        title: `Post ${state.profilePage.posts.length + 1}`,
-        descr: textNewPost
+    _callSubscriber(state: StatePropsType) {},
+    getState() {
+        return this._state
+    },
+    subscribe(observer: () => void) {
+        this._callSubscriber = observer
+    },
+    dispatch(action: any) {
+        if(action.type === 'ADD-POST') {
+            let newPost = {
+                _id: v1(),
+                title: `Post ${this._state.profilePage.posts.length + 1}`,
+                descr: action.textNewPost
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.textInArea = ''
+            this._callSubscriber(this._state)
+        } else if(action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profilePage.textInArea = action.newTextInArea
+            this._callSubscriber(this._state)
+        }
     }
-    state.profilePage.posts.push(newPost)
-    state.profilePage.textInArea = ''
-    rerenderEntireTree(state)
 }
 
-export const updateNewPostText = (newTextInArea: string) => {
-    state.profilePage.textInArea = newTextInArea
-    rerenderEntireTree(state)
-}
+
 

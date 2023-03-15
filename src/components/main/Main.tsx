@@ -4,7 +4,7 @@ import {MainImg} from "./MainImg/MainImg";
 import {MyProfile} from "./MyProfile/MyProfile";
 import {SendMyPost} from "./SendMyPost/SendMyPost";
 import {Posts} from "./Posts/Posts";
-import {updateNewPostText} from "../../state";
+import {} from "../../state";
 
 type MainPropsType = {
     state: {
@@ -15,8 +15,7 @@ type MainPropsType = {
         }[]
         textInArea: string
     }
-    addPost: (textNewPost: string) => void
-    updateNewPostText: (newTextInArea: string) => void
+    dispatch: (action: any) => void
 }
 
 export function Main (props: MainPropsType) {
@@ -25,8 +24,7 @@ export function Main (props: MainPropsType) {
         <main className={s.main}>
             <MainImg/>
             <MyProfile/>
-            <SendMyPost addPost={props.addPost}
-                        updateNewPostText={updateNewPostText}
+            <SendMyPost dispatch={props.dispatch}
                         textInArea={props.state.textInArea}/>
             <Posts posts={props.state.posts}/>
         </main>

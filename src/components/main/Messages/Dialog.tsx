@@ -17,7 +17,7 @@ export const Dialog = (props: DialogPropsType) => {
                        <img alt='avatar'
                             src={'https://cs14.pikabu.ru/post_img/big/2022/04/16/4/1650081838119523257.jpg'}
                             className={s.avatar}/>
-                       <div className={s.message}>{el}</div>
+                       <div className={s.message} key={el._id}>{el.message}</div>
                    </div>
                )
             })}

@@ -4,13 +4,12 @@ import {Header} from "./components/header/Header";
 import {Navigation} from "./components/navigation/Navigation";
 import {Main} from "./components/main/Main";
 import {Messages} from "./components/main/Messages/Messages";
-import {BrowserRouter, Route} from "react-router-dom";
-import {StatePropsType, updateNewPostText} from "./state";
+import {BrowserRouter, Redirect, Route} from "react-router-dom";
+import {StatePropsType, store} from "./state";
 
 export type AppPropsType = {
     state: StatePropsType
-    addPost: (textNewPost: string) => void
-    updateNewPostText: (newTextInArea: string) => void
+    dispatch: (action: any) => void
 }
 
 function App(props: AppPropsType) {
@@ -21,12 +20,14 @@ function App(props: AppPropsType) {
             <Header/>
             <Navigation/>
             <div>
+                <Redirect exact from={'/'} to={'/main'}/>
                 <Route path={'/main'}
                        render={() => <Main state={props.state.profilePage}
-                                           addPost={props.addPost}
-                                           updateNewPostText={updateNewPostText}/>}/>
+                                           dispatch={props.dispatch}/>}
+                />
                 <Route path={'/messages'}
-                       render={() => <Messages state={props.state.dialogsPage.dialogs}/>}/>
+                       render={() => <Messages state={props.state.dialogsPage}/>}
+                />
             </div>
         </div>
       </BrowserRouter>

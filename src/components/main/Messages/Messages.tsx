@@ -5,22 +5,24 @@ import {Dialog} from "./Dialog";
 
 type MessagesPropsType = {
     state: {
-        dialogsPerson: {
-            _id: string
-            name: string
-        }[]
-        messages: {
-            _id: string
-            message: string
-        }[]
+        dialogs: {
+            dialogsPerson: {
+                _id: string
+                name: string
+            }[]
+            messages: {
+                _id: string
+                message: string
+            }[]
+        }
     }
 }
 
 export function Messages (props: MessagesPropsType) {
     return (
         <div className={s.dialogsList}>
-            <DialogsList dialogsPerson={props.state.dialogsPerson}/>
-            <Dialog messages={props.state.messages}/>
+            <DialogsList dialogsPerson={props.state.dialogs.dialogsPerson}/>
+            <Dialog messages={props.state.dialogs.messages}/>
         </div>
     )
 }

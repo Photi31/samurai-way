@@ -14,7 +14,7 @@ export const DialogsList = (props: DialogsListPropsType) => {
             <h3 className={s.title}>dialogs</h3>
             <ul className={s.list}>
                 {props.dialogsPerson.map(el => {
-                    return <li>{el}</li>
+                    return <li key={el._id}>{el.name}</li>
                 })}
             </ul>
         </div>
