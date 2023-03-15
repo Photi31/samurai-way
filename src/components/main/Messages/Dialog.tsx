@@ -1,10 +1,7 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import s from './Dialog.module.css'
-import {
-    ActionType,
-    addMessageActionCreator,
-    updateNewMessageTextActionCreator,
-} from "../../../state";
+import {ActionType} from "../../../state";
+import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../reducers/dialogs-reducer";
 
 type DialogPropsType = {
     messages: {
