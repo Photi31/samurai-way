@@ -25,3 +25,48 @@
     padding: 5px;
     border-radius: 10px;
 }
+
+.sendMessage {
+    margin: 30px;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sendMessage pre {
+    white-space: pre-line;
+    margin: 0;
+}
+
+.sendMessage textarea {
+    width: 600px;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16px;
+    line-height: 24px;
+    resize: none;
+}
+
+.sendMessage textarea::-webkit-scrollbar {
+    visibility: hidden;
+    width: 0;
+}
+
+.sendMessage textarea:focus {
+    outline: none;
+}
+
+.sendMessage button {
+    height: 35px;
+    width: 100px;
+    display: block;
+    border: none;
+    border-radius: 10px;
+    background-color: #c56bf3;
+    color: #EFE2BA;
+    font-size: 20px;
+    line-height: 24px;
+}

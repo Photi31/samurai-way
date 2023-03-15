@@ -1,8 +1,9 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import s from './SendMyPost.module.css';
+import {addPostActionCreator, ActionType, updateNewPostTextActionCreator} from "../../../state";
 
 type SendMyPostPropsType = {
-    dispatch: (action: { }) => void
+    dispatch: (action: ActionType) => void
     textInArea: string
 }
 
@@ -12,12 +13,12 @@ export function SendMyPost(props: SendMyPostPropsType) {
 
     const onClickHandler = () => {
         let textNewPost = newPostElement.current?.value
-        if (textNewPost) props.dispatch({type: 'ADD-POST', textNewPost: textNewPost})
+        if (textNewPost) props.dispatch(addPostActionCreator(textNewPost))
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newTextInArea = e.currentTarget.value
-        props.dispatch({type: 'UPDATE-NEW-POST-TEXT', newTextInArea: newTextInArea})
+        props.dispatch(updateNewPostTextActionCreator(newTextInArea))
     }
 
     return (

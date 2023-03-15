@@ -4,6 +4,7 @@ import {MainImg} from "./MainImg/MainImg";
 import {MyProfile} from "./MyProfile/MyProfile";
 import {SendMyPost} from "./SendMyPost/SendMyPost";
 import {Posts} from "./Posts/Posts";
+import {ActionType} from "../../state";
 
 type MainPropsType = {
     state: {
@@ -14,7 +15,7 @@ type MainPropsType = {
         }[]
         textInArea: string
     }
-    dispatch: (action: any) => void
+    dispatch: (action: ActionType) => void
 }
 
 export function Main (props: MainPropsType) {
