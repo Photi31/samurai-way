@@ -14,18 +14,22 @@ export type UpdateNewMessageTextActionType = {
 }
 
 export const dialogsReducer = (state: DialogsPagePropsType, action: ActionType) => {
-    if (action.type === ADD_MESSAGE) {
-        let newMessage = {
-            _id: v1(),
-            message: `${action.textNewMessage}`
+    switch (action.type) {
+        case "ADD-MESSAGE": {
+            let newMessage = {
+                _id: v1(),
+                message: `${action.textNewMessage}`
+            }
+            state.dialogs.messages.push(newMessage)
+            state.newMessageText = ''
+            return state
         }
-        state.dialogs.messages.push(newMessage)
-        state.newMessageText = ''
+        case "UPDATE-NEW-MESSAGE-TEXT": {
+            state.newMessageText = action.newTextInArea
+            return state
+        }
+        default: return state
     }
-    else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-        state.newMessageText = action.newTextInArea
-    }
-    return state
 }
 
 export const addMessageActionCreator = (textNewMessage: string): AddMessageActionType => {

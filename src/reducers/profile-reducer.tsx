@@ -14,19 +14,23 @@ export type UpdateNewPostTextActionType = {
 }
 
 export const profileReducer = (state: ProfilePagePropsType, action: ActionType) => {
-    if (action.type === ADD_POST) {
-        let newPost = {
-            _id: v1(),
-            title: `Post ${state.posts.length + 1}`,
-            descr: action.textNewPost
+    switch (action.type) {
+        case "ADD-POST": {
+            let newPost = {
+                _id: v1(),
+                title: `Post ${state.posts.length + 1}`,
+                descr: action.textNewPost
+            }
+            state.posts.push(newPost)
+            state.textInArea = ''
+            return state
         }
-        state.posts.push(newPost)
-        state.textInArea = ''
+        case "UPDATE-NEW-POST-TEXT": {
+            state.textInArea = action.newTextInArea
+            return state
+        }
+        default: return state
     }
-    else if (action.type === UPDATE_NEW_POST_TEXT) {
-        state.textInArea = action.newTextInArea
-    }
-    return state
 }
 
 export const addPostActionCreator = (textNewPost: string): AddPostActionType => {
