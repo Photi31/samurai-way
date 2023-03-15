@@ -5,7 +5,7 @@ import {Navigation} from "./components/navigation/Navigation";
 import {Main} from "./components/main/Main";
 import {Messages} from "./components/main/Messages/Messages";
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
-import {StatePropsType, store} from "./state";
+import {StatePropsType} from "./state";
 
 export type AppPropsType = {
     state: StatePropsType

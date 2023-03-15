@@ -4,7 +4,6 @@ import {MainImg} from "./MainImg/MainImg";
 import {MyProfile} from "./MyProfile/MyProfile";
 import {SendMyPost} from "./SendMyPost/SendMyPost";
 import {Posts} from "./Posts/Posts";
-import {} from "../../state";
 
 type MainPropsType = {
     state: {

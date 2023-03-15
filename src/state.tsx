@@ -31,6 +31,7 @@ export type StatePropsType = {
     }
     sidebar: {}
 }
+
 type AddPostActionType = {
     type: 'ADD-POST'
     textNewPost: string
@@ -73,7 +74,7 @@ export const store: StorePropsType = {
         },
         sidebar: {}
     },
-    _callSubscriber(state: StatePropsType) {},
+    _callSubscriber() {},
     getState() {
         return this._state
     },

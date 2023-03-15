@@ -1,6 +1,5 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import s from './SendMyPost.module.css';
-import actions from "redux-form/lib/actions";
 
 type SendMyPostPropsType = {
     dispatch: (action: { }) => void
