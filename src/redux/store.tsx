@@ -1,12 +1,7 @@
 import {v1} from "uuid";
-import {
-    AddMessageActionType, dialogsReducer,
-    UpdateNewMessageTextActionType
-} from "./reducers/dialogs-reducer";
+import {AddMessageActionType, dialogsReducer,UpdateNewMessageTextActionType} from "./reducers/dialogs-reducer";
 import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from "./reducers/profile-reducer";
 import {sidebarReducer} from "./reducers/sidebar-reducer";
-
-
 
 export type StorePropsType = {
     _state: StatePropsType
@@ -15,11 +10,10 @@ export type StorePropsType = {
     subscribe: (observer: () => void) => void
     dispatch: (action: ActionType) => void
 }
-
 export type StatePropsType = {
     profilePage: ProfilePagePropsType
     dialogsPage: DialogsPagePropsType
-    sidebar: {}
+    sidebar: SidebarPropsType
 }
 export type ProfilePagePropsType = {
     posts: {
@@ -45,7 +39,6 @@ export type DialogsPagePropsType = {
 export type SidebarPropsType = {
 
 }
-
 export type ActionType = AddPostActionType
                         | UpdateNewPostTextActionType
                         | AddMessageActionType

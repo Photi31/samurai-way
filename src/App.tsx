@@ -5,7 +5,7 @@ import {Navigation} from "./components/navigation/Navigation";
 import {Main} from "./components/main/Main";
 import {Messages} from "./components/main/Messages/Messages";
 import {BrowserRouter, Redirect, Route} from "react-router-dom";
-import {ActionType, StatePropsType} from "./state";
+import {ActionType, StatePropsType} from "./redux/store";
 
 export type AppPropsType = {
     state: StatePropsType

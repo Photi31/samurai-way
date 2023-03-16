@@ -1,7 +1,7 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import s from './SendMyPost.module.css';
-import { ActionType} from "../../../state";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../reducers/profile-reducer";
+import { ActionType} from "../../../redux/store";
+import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/reducers/profile-reducer";
 
 type SendMyPostPropsType = {
     dispatch: (action: ActionType) => void

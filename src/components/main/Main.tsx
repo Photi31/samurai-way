@@ -4,7 +4,7 @@ import {MainImg} from "./MainImg/MainImg";
 import {MyProfile} from "./MyProfile/MyProfile";
 import {SendMyPost} from "./SendMyPost/SendMyPost";
 import {Posts} from "./Posts/Posts";
-import {ActionType} from "../../state";
+import {ActionType} from "../../redux/store";
 
 type MainPropsType = {
     state: {

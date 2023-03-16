@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ActionType, ProfilePagePropsType} from "../state";
+import {ActionType, ProfilePagePropsType} from "../store";
 
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const ADD_POST = 'ADD-POST'
@@ -13,7 +13,16 @@ export type UpdateNewPostTextActionType = {
     newTextInArea: string
 }
 
-export const profileReducer = (state: ProfilePagePropsType, action: ActionType) => {
+const initialState: ProfilePagePropsType = {
+    posts: [
+        {_id: v1(), title: 'Post 1', descr: "This is first post about me..."},
+        {_id: v1(), title: 'Post 2', descr: "This is post about my family..."},
+        {_id: v1(), title: 'Post 3', descr: "This is post about my jobs..."},
+    ],
+    textInArea: ''
+}
+
+export const profileReducer = (state: ProfilePagePropsType = initialState, action: ActionType) => {
     switch (action.type) {
         case "ADD-POST": {
             let newPost = {
