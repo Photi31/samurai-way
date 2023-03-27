@@ -3,13 +3,9 @@ import s from './App.module.css';
 import {Header} from "./components/header/Header";
 import {Navigation} from "./components/navigation/Navigation";
 import { Redirect, Route} from "react-router-dom";
-import {MessagesContainer} from "./components/main/Messages/MessagesContainer";
-import {MainContainer} from "./components/main/MainContainer";
+import {Messages} from "./components/main/Messages/Messages";
+import {Main} from "./components/main/Main";
 
-// export type AppPropsType = {
-//     state: StatePropsType
-//     dispatch: (action: ActionType) => void
-// }
 
 function App() {
 
@@ -20,10 +16,10 @@ function App() {
             <div>
                 <Redirect exact from={'/'} to={'/main'}/>
                 <Route path={'/main'}
-                       render={() => <MainContainer/>}
+                       render={() => <Main/>}
                 />
                 <Route path={'/messages'}
-                       render={() => <MessagesContainer/>}
+                       render={() => <Messages/>}
                 />
             </div>
         </div>

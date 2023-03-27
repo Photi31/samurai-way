@@ -7,7 +7,7 @@ type PostType = {
     descr: string
 }
 
-type PostsPropsType = {
+export type PostsPropsType = {
     posts: Array<PostType>
 }
 
