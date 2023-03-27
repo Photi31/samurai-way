@@ -1,7 +1,5 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import s from './Dialog.module.css'
-import {ActionType} from "../../../redux/store";
-import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/reducers/dialogs-reducer";
 
 type DialogPropsType = {
     messages: {
@@ -9,7 +7,8 @@ type DialogPropsType = {
         message: string
     }[]
     newMessageText: string
-    dispatch: (action: ActionType) => void
+    onClickSendMessage: (textNewMessage: string) => void
+    onChangeText: (newTextInArea: string) => void
 }
 
 export const Dialog = (props: DialogPropsType) => {
@@ -17,12 +16,12 @@ export const Dialog = (props: DialogPropsType) => {
     const newMessageElement: RefObject<HTMLTextAreaElement> = React.createRef()
     const onClickSendMessage = () => {
         let textNewMessage = newMessageElement.current?.value
-        if (textNewMessage) props.dispatch(addMessageActionCreator(textNewMessage))
+        if (textNewMessage) props.onClickSendMessage(textNewMessage)
     }
 
     const onChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newTextInArea = e.currentTarget.value
-        props.dispatch(updateNewMessageTextActionCreator(newTextInArea))
+        props.onChangeText(newTextInArea)
     }
 
     return (

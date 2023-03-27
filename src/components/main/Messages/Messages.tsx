@@ -2,23 +2,12 @@ import React from 'react';
 import s from './Messages.module.css'
 import {DialogsList} from "./DialogsList";
 import {Dialog} from "./Dialog";
-import {ActionType} from "../../../redux/store";
+import {DialogsPagePropsType} from "../../../redux/store";
 
 type MessagesPropsType = {
-    state: {
-        dialogs: {
-            dialogsPerson: {
-                _id: string
-                name: string
-            }[]
-            messages: {
-                _id: string
-                message: string
-            }[]
-        }
-        newMessageText: string
-    }
-    dispatch: (action: ActionType) => void
+    state: DialogsPagePropsType
+    onClickSendMessage: (textNewMessage: string) => void
+    onChangeText: (newTextInArea: string) => void
 }
 
 export function Messages (props: MessagesPropsType) {
@@ -27,7 +16,9 @@ export function Messages (props: MessagesPropsType) {
             <DialogsList dialogsPerson={props.state.dialogs.dialogsPerson}/>
             <Dialog messages={props.state.dialogs.messages}
                     newMessageText={props.state.newMessageText}
-                    dispatch={props.dispatch}/>
+                    onClickSendMessage={props.onClickSendMessage}
+                    onChangeText={props.onChangeText}
+            />
         </div>
     )
 }

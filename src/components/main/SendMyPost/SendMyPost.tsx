@@ -1,10 +1,9 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import s from './SendMyPost.module.css';
-import { ActionType} from "../../../redux/store";
-import {addPostActionCreator, updateNewPostTextActionCreator} from "../../../redux/reducers/profile-reducer";
 
 type SendMyPostPropsType = {
-    dispatch: (action: ActionType) => void
+    addPost: (textNewPost: string) => void
+    updateNewPostText: (newTextInArea: string) => void
     textInArea: string
 }
 
@@ -14,12 +13,12 @@ export function SendMyPost(props: SendMyPostPropsType) {
 
     const onClickHandler = () => {
         let textNewPost = newPostElement.current?.value
-        if (textNewPost) props.dispatch(addPostActionCreator(textNewPost))
+        if (textNewPost) props.addPost(textNewPost)
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         let newTextInArea = e.currentTarget.value
-        props.dispatch(updateNewPostTextActionCreator(newTextInArea))
+        props.updateNewPostText(newTextInArea)
     }
 
     return (

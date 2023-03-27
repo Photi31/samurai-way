@@ -36,7 +36,8 @@ const initialState: DialogsPagePropsType = {
     newMessageText: ''
 }
 
-export const dialogsReducer = (state: DialogsPagePropsType = initialState, action: ActionType) => {
+export const dialogsReducer = (state: DialogsPagePropsType = initialState,
+                               action: ActionType): DialogsPagePropsType => {
     switch (action.type) {
         case "ADD-MESSAGE": {
             let newMessage = {

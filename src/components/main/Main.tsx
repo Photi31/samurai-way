@@ -4,7 +4,6 @@ import {MainImg} from "./MainImg/MainImg";
 import {MyProfile} from "./MyProfile/MyProfile";
 import {SendMyPost} from "./SendMyPost/SendMyPost";
 import {Posts} from "./Posts/Posts";
-import {ActionType} from "../../redux/store";
 
 type MainPropsType = {
     state: {
@@ -15,7 +14,8 @@ type MainPropsType = {
         }[]
         textInArea: string
     }
-    dispatch: (action: ActionType) => void
+    addPost: (textNewPost: string) => void
+    updateNewPostText: (newTextInArea: string) => void
 }
 
 export function Main (props: MainPropsType) {
@@ -24,7 +24,8 @@ export function Main (props: MainPropsType) {
         <main className={s.main}>
             <MainImg/>
             <MyProfile/>
-            <SendMyPost dispatch={props.dispatch}
+            <SendMyPost addPost={props.addPost}
+                        updateNewPostText={props.updateNewPostText}
                         textInArea={props.state.textInArea}/>
             <Posts posts={props.state.posts}/>
         </main>
