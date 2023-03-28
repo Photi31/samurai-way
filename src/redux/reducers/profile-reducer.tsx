@@ -22,7 +22,7 @@ const initialState: ProfilePagePropsType = {
     textInArea: ''
 }
 
-export const profileReducer = (state: ProfilePagePropsType = initialState, action: ActionType) => {
+export const profileReducer = (state: ProfilePagePropsType = initialState, action: ActionType): ProfilePagePropsType => {
     switch (action.type) {
         case "ADD-POST": {
             let newPost = {
@@ -30,13 +30,13 @@ export const profileReducer = (state: ProfilePagePropsType = initialState, actio
                 title: `Post ${state.posts.length + 1}`,
                 descr: action.textNewPost
             }
-            state.posts.push(newPost)
-            state.textInArea = ''
-            return state
+            return  {
+                posts: [...state.posts, newPost],
+                textInArea: ''
+            }
         }
         case "UPDATE-NEW-POST-TEXT": {
-            state.textInArea = action.newTextInArea
-            return state
+            return  {...state, textInArea: action.newTextInArea}
         }
         default: return state
     }

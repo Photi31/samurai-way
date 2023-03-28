@@ -5,6 +5,7 @@ import {Navigation} from "./components/navigation/Navigation";
 import { Redirect, Route} from "react-router-dom";
 import {Messages} from "./components/main/Messages/Messages";
 import {Main} from "./components/main/Main";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 
 function App() {
@@ -20,6 +21,9 @@ function App() {
                 />
                 <Route path={'/messages'}
                        render={() => <Messages/>}
+                />
+                <Route path={'/users'}
+                       render={() => <UsersContainer/>}
                 />
             </div>
         </div>

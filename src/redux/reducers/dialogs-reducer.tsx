@@ -44,13 +44,20 @@ export const dialogsReducer = (state: DialogsPagePropsType = initialState,
                 _id: v1(),
                 message: `${action.textNewMessage}`
             }
-            state.dialogs.messages.push(newMessage)
-            state.newMessageText = ''
-            return state
+            return  {
+                ...state,
+                dialogs: {
+                    ...state.dialogs,
+                    messages: [...state.dialogs.messages, newMessage]
+                },
+                newMessageText: ''
+            }
         }
         case "UPDATE-NEW-MESSAGE-TEXT": {
-            state.newMessageText = action.newTextInArea
-            return state
+            return  {
+                ...state,
+                newMessageText: action.newTextInArea
+            }
         }
         default: return state
     }
