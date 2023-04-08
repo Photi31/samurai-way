@@ -2,8 +2,7 @@ import {v1} from "uuid";
 import {AddMessageActionType, dialogsReducer, UpdateNewMessageTextActionType} from "./reducers/dialogs-reducer";
 import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from "./reducers/profile-reducer";
 import {sidebarReducer} from "./reducers/sidebar-reducer";
-import {FollowAT, SetAT, UnfollowAT, usersReducer} from "./reducers/users-reducer";
-import {UserType} from "../components/Users/Users";
+import {FollowAT, InitialStateType, SetAT, setCurrentPageAT, UnfollowAT, usersReducer} from "./reducers/users-reducer";
 
 export type StorePropsType = {
     _state: StatePropsType
@@ -16,7 +15,7 @@ export type StatePropsType = {
     profilePage: ProfilePagePropsType
     dialogsPage: DialogsPagePropsType
     sidebar: SidebarPropsType
-    users: Array<UserType>
+    usersPage: InitialStateType
 }
 export type ProfilePagePropsType = {
     posts: {
@@ -47,6 +46,7 @@ export type ActionType = AddPostActionType
                         | FollowAT
                         | UnfollowAT
                         | SetAT
+                        | setCurrentPageAT
 
 
 export const store: StorePropsType = {
@@ -82,7 +82,12 @@ export const store: StorePropsType = {
             newMessageText: ''
         },
         sidebar: {},
-        users: []
+        usersPage: {
+            users: [],
+            pageSize: 0,
+            totalUsersCount: 0,
+            currentPage: 0
+        }
     },
     _callSubscriber() {
     },
@@ -95,8 +100,8 @@ export const store: StorePropsType = {
     dispatch(action: ActionType) {
         profileReducer(this._state.profilePage, action)
         dialogsReducer(this._state.dialogsPage, action)
+        usersReducer(this._state.usersPage, action)
         sidebarReducer(this._state.sidebar, action)
-        usersReducer(this._state.users, action)
         this._callSubscriber(this._state)
     }
 }

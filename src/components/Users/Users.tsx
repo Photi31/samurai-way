@@ -1,6 +1,5 @@
 import React, {MouseEvent} from 'react';
 import s from './Users.module.css';
-import axios from "axios";
 
 export type UserType = {
     id: string
@@ -16,44 +15,46 @@ export type UserType = {
         city: string
     }
 }
-
-type UsersType = {
+export type UsersType = {
     users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
     onUnfollow: (userID: string) => void
     onFollow: (userID: string) => void
-    set: (initialState: Array<UserType>) => void
+    setCurrentPage: (currentPage: number) => void
 }
 
-
-
 export const Users = (props: UsersType) => {
-
-    if(props.users.length === 0) {
-        axios.create({
-            withCredentials: true,
-            baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-            headers:     {
-                "API-KEY": "67dd4401-c897-43e6-a058-b14b4d86756b"
-            }
-        })
-            .get('users')
-            .then(response => {
-                props.set(response.data.items)
-            })
-
+    const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
+    let pages = []
+    for (let i = 1; i <= 10; i++) {
+        pages.push(i)
     }
 
     const onUnfollow = (e: MouseEvent<HTMLButtonElement>) => {
-        console.log('onUnfollow', e.currentTarget.id)
         props.onUnfollow(e.currentTarget.id)
     }
+
     const onFollow = (e: MouseEvent<HTMLButtonElement>) => {
-        console.log('onFollow', e.currentTarget.id)
         props.onFollow(e.currentTarget.id)
     }
-
     return (
         <div className={s.wrapper}>
+            <div className={s.pages}>
+                {pages.map(p => {
+                    return <span id={String(p)}
+                                 className={props.currentPage === p ? s.selectedPage : ''}
+                                 onClick={() => props.setCurrentPage(p)}>{p}</span>
+                })}
+                {pagesCount > 10 && <div className={s.pages}>
+                    <span>...</span>
+                    <span id={String(pagesCount)}
+                          onClick={() => props.setCurrentPage(pagesCount)}
+                          className={props.currentPage === pagesCount ? s.selectedPage : ''}>{pagesCount}</span>
+                </div>}
+
+            </div>
             {props.users.map(user => {
                 return (
                     <div key={user.id} className={s.users}>
@@ -72,7 +73,8 @@ export const Users = (props: UsersType) => {
                         </div>
                         <div className={s.button}>
                             {user.followed ?
-                                <button id={user.id} onClick={onUnfollow} className={s.unfollow}>UNFOLLOW</button>
+                                <button id={user.id} onClick={onUnfollow}
+                                        className={s.unfollow}>UNFOLLOW</button>
                                 : <button id={user.id} onClick={onFollow} className={s.follow}>FOLLOW</button>
                             }
                         </div>
