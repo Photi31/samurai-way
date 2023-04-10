@@ -4,11 +4,11 @@ import {ActionType, DialogsPagePropsType} from "../store";
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT'
 
-export type AddMessageActionType = {
+export type AddMessageAT = {
     type: 'ADD-MESSAGE'
     textNewMessage: string
 }
-export type UpdateNewMessageTextActionType = {
+export type UpdateNewMessageTextAT = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
     newTextInArea: string
 }
@@ -63,13 +63,13 @@ export const dialogsReducer = (state: DialogsPagePropsType = initialState,
     }
 }
 
-export const addMessageActionCreator = (textNewMessage: string): AddMessageActionType => {
+export const addMessageActionCreator = (textNewMessage: string): AddMessageAT => {
     return {
         type: ADD_MESSAGE,
         textNewMessage: textNewMessage
     }
 }
-export const updateNewMessageTextActionCreator = (newTextInArea: string): UpdateNewMessageTextActionType => {
+export const updateNewMessageTextActionCreator = (newTextInArea: string): UpdateNewMessageTextAT => {
     return {
         type: UPDATE_NEW_MESSAGE_TEXT,
         newTextInArea: newTextInArea

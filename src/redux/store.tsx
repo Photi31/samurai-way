@@ -1,8 +1,19 @@
 import {v1} from "uuid";
-import {AddMessageActionType, dialogsReducer, UpdateNewMessageTextActionType} from "./reducers/dialogs-reducer";
-import {AddPostActionType, profileReducer, UpdateNewPostTextActionType} from "./reducers/profile-reducer";
+import {
+    AddMessageAT,
+    dialogsReducer,
+    UpdateNewMessageTextAT
+} from "./reducers/dialogs-reducer";
+import {
+    AddPostAT,
+    profileReducer,
+    setUserProfileAT,
+    UpdateNewPostTextAT
+} from "./reducers/profile-reducer";
 import {sidebarReducer} from "./reducers/sidebar-reducer";
 import {FollowAT, InitialStateType, SetAT, setCurrentPageAT, UnfollowAT, usersReducer} from "./reducers/users-reducer";
+import {ProfileType} from "../components/main/ProfilePage/Profile";
+import {PostType} from "../components/main/Posts/Posts";
 
 export type StorePropsType = {
     _state: StatePropsType
@@ -18,11 +29,8 @@ export type StatePropsType = {
     usersPage: InitialStateType
 }
 export type ProfilePagePropsType = {
-    posts: {
-        _id: string
-        title: string
-        descr: string
-    }[]
+    profile: ProfileType
+    posts: Array<PostType>
     textInArea: string
 }
 export type DialogsPagePropsType = {
@@ -39,24 +47,39 @@ export type DialogsPagePropsType = {
     newMessageText: string
 }
 export type SidebarPropsType = {}
-export type ActionType = AddPostActionType
-                        | UpdateNewPostTextActionType
-                        | AddMessageActionType
-                        | UpdateNewMessageTextActionType
+export type ActionType = AddPostAT
+                        | UpdateNewPostTextAT
+                        | AddMessageAT
+                        | UpdateNewMessageTextAT
                         | FollowAT
                         | UnfollowAT
                         | SetAT
                         | setCurrentPageAT
+                        | setUserProfileAT
 
 
 export const store: StorePropsType = {
     _state: {
         profilePage: {
-            posts: [
-                {_id: v1(), title: 'Post 1', descr: "This is first post about me..."},
-                {_id: v1(), title: 'Post 2', descr: "This is post about my family..."},
-                {_id: v1(), title: 'Post 3', descr: "This is post about my jobs..."},
-            ],
+            profile: {
+                aboutMe: '',
+                contacts: {
+                    facebook: null,
+                    website: null,
+                    vk: null,
+                    twitter: null,
+                    instagram: null,
+                },
+                fullName: '',
+                lookingForAJob: true,
+                lookingForAJobDescription: '',
+                photos: {
+                    small: null,
+                    large: null
+                },
+                userId: 1
+            },
+            posts: [],
             textInArea: ''
         },
         dialogsPage: {

@@ -8,7 +8,6 @@ export type InitialStateType = {
     totalUsersCount: number
     currentPage: number
 }
-
 const initialState = {
     users: [],
     pageSize: 5,
@@ -18,7 +17,7 @@ const initialState = {
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
-const SET = 'SET'
+const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 
 export type FollowAT = {
@@ -30,7 +29,7 @@ export type UnfollowAT = {
     userID: string
 }
 export type SetAT = {
-    type: 'SET'
+    type: 'SET-USERS'
     initialState: InitialStateType
 }
 export type setCurrentPageAT = {
@@ -49,7 +48,7 @@ export const usersReducer = (state: InitialStateType = initialState,
             return {...state,
                 users: state.users.map(user => String(user.id) === action.userID ? {...user, followed: false} : user)
             }
-        case "SET":
+        case "SET-USERS":
             return {...action.initialState}
         case "SET-CURRENT-PAGE":
             return {
@@ -60,25 +59,25 @@ export const usersReducer = (state: InitialStateType = initialState,
     }
 }
 
-export const followAC = (userID: string): FollowAT => {
+export const follow = (userID: string): FollowAT => {
     return {
         type: FOLLOW,
         userID
     }
 }
-export const unfollowAC = (userID: string): UnfollowAT => {
+export const unfollow = (userID: string): UnfollowAT => {
     return {
         type: UNFOLLOW,
         userID
     }
 }
-export const setAC = (initialState: InitialStateType): SetAT => {
+export const setUsers = (initialState: InitialStateType): SetAT => {
     return {
-        type: SET,
+        type: SET_USERS,
         initialState
     }
 }
-export const setCurrentPageAC = (currentPage: number): setCurrentPageAT => {
+export const setCurrentPage = (currentPage: number): setCurrentPageAT => {
     return {
         type: SET_CURRENT_PAGE,
         currentPage

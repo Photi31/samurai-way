@@ -1,5 +1,6 @@
 import React, {MouseEvent} from 'react';
 import s from './Users.module.css';
+import {NavLink} from "react-router-dom";
 
 export type UserType = {
     id: string
@@ -20,8 +21,8 @@ export type UsersType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    onUnfollow: (userID: string) => void
-    onFollow: (userID: string) => void
+    unfollow: (userID: string) => void
+    follow: (userID: string) => void
     setCurrentPage: (currentPage: number) => void
 }
 
@@ -32,13 +33,13 @@ export const Users = (props: UsersType) => {
         pages.push(i)
     }
 
-    const onUnfollow = (e: MouseEvent<HTMLButtonElement>) => {
-        props.onUnfollow(e.currentTarget.id)
+    const unfollow = (e: MouseEvent<HTMLButtonElement>) => {
+        props.unfollow(e.currentTarget.id)
+    }
+    const follow = (e: MouseEvent<HTMLButtonElement>) => {
+        props.follow(e.currentTarget.id)
     }
 
-    const onFollow = (e: MouseEvent<HTMLButtonElement>) => {
-        props.onFollow(e.currentTarget.id)
-    }
     return (
         <div className={s.wrapper}>
             <div className={s.pages}>
@@ -58,9 +59,11 @@ export const Users = (props: UsersType) => {
             {props.users.map(user => {
                 return (
                     <div key={user.id} className={s.users}>
-                        <img alt={'avatar'}
-                             className={s.avatar}
-                             src={user.photos.small || 'https://cs14.pikabu.ru/post_img/big/2022/04/16/4/1650081784126494530.jpg'}/>
+                        <NavLink to={'/profile/' + user.id}>
+                            <img alt={'avatar'}
+                                 className={s.avatar}
+                                 src={user.photos.small || 'https://cs14.pikabu.ru/post_img/big/2022/04/16/4/1650081784126494530.jpg'}/>
+                        </NavLink>
                         <div className={s.info}>
                             <div className={s.descr}>
                                 <span>{user.name}</span>
@@ -73,9 +76,9 @@ export const Users = (props: UsersType) => {
                         </div>
                         <div className={s.button}>
                             {user.followed ?
-                                <button id={user.id} onClick={onUnfollow}
+                                <button id={user.id} onClick={unfollow}
                                         className={s.unfollow}>UNFOLLOW</button>
-                                : <button id={user.id} onClick={onFollow} className={s.follow}>FOLLOW</button>
+                                : <button id={user.id} onClick={follow} className={s.follow}>FOLLOW</button>
                             }
                         </div>
                     </div>

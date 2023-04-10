@@ -1,13 +1,13 @@
 import React from 'react';
 import s from './Posts.module.css';
 
-type PostType = {
+export type PostType = {
     _id: string
     title: string
     descr: string
 }
 
-export type PostsPropsType = {
+type PostsPropsType = {
     posts: Array<PostType>
 }
 
