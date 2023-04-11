@@ -23,8 +23,8 @@ function App() {
             <Header/>
             <Navigation/>
             <div>
-                <Redirect exact from={'/'} to={'/main'}/>
-                <Route path={'/main'}
+                <Redirect exact from={'/'} to={'/profile'}/>
+                <Route path={'/profile/:userId?'}
                        render={() => <ProfileContainer/>}
                 />
                 <Route path={'/messages'}
