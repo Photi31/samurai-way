@@ -8,3 +8,11 @@
 .logo {
     height: 100%;
 }
+
+.loginBlock {
+    float: right;
+    color: #EFE2BA;
+}
+.loginBlock a {
+    cursor: pointer;
+}

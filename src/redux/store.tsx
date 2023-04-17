@@ -14,6 +14,7 @@ import {sidebarReducer} from "./reducers/sidebar-reducer";
 import {FollowAT, InitialStateType, SetAT, setCurrentPageAT, UnfollowAT, usersReducer} from "./reducers/users-reducer";
 import {ProfileType} from "../components/main/ProfilePage/Profile";
 import {PostType} from "../components/main/Posts/Posts";
+import {SetUserDataAT} from "./reducers/auth-reducer";
 
 export type StorePropsType = {
     _state: StatePropsType
@@ -56,6 +57,7 @@ export type ActionType = AddPostAT
                         | SetAT
                         | setCurrentPageAT
                         | setUserProfileAT
+                        | SetUserDataAT
 
 
 export const store: StorePropsType = {
