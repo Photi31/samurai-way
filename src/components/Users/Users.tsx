@@ -1,6 +1,7 @@
 import React, {MouseEvent} from 'react';
 import s from './Users.module.css';
 import {NavLink} from "react-router-dom";
+import {usersAPI} from "../../api/api";
 
 export type UserType = {
     id: string
@@ -21,9 +22,11 @@ export type UsersType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    followingProgress: string[]
     unfollow: (userID: string) => void
     follow: (userID: string) => void
     setCurrentPage: (currentPage: number) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: string) => void
 }
 
 export const Users = (props: UsersType) => {
@@ -34,10 +37,28 @@ export const Users = (props: UsersType) => {
     }
 
     const unfollow = (e: MouseEvent<HTMLButtonElement>) => {
-        props.unfollow(e.currentTarget.id)
+        const userId = e.currentTarget.id
+        props.toggleFollowingProgress(true, userId)
+        usersAPI.deleteUser(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    props.unfollow(userId)
+                }
+                props.toggleFollowingProgress(false, userId)
+            })
+
     }
     const follow = (e: MouseEvent<HTMLButtonElement>) => {
-        props.follow(e.currentTarget.id)
+        const userId = e.currentTarget.id
+        props.toggleFollowingProgress(true, userId)
+        usersAPI.postUser(userId)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    props.follow(userId)
+                }
+                props.toggleFollowingProgress(false, userId)
+            })
+
     }
 
     return (
@@ -46,13 +67,15 @@ export const Users = (props: UsersType) => {
                 {pages.map(p => {
                     return <span id={String(p)}
                                  className={props.currentPage === p ? s.selectedPage : ''}
-                                 onClick={() => props.setCurrentPage(p)}>{p}</span>
+                                 onClick={() => props.setCurrentPage(p)}
+                    >{p}</span>
                 })}
                 {pagesCount > 10 && <div className={s.pages}>
                     <span>...</span>
                     <span id={String(pagesCount)}
                           onClick={() => props.setCurrentPage(pagesCount)}
-                          className={props.currentPage === pagesCount ? s.selectedPage : ''}>{pagesCount}</span>
+                          className={props.currentPage === pagesCount ? s.selectedPage : ''}
+                    >{pagesCount}</span>
                 </div>}
 
             </div>
@@ -76,9 +99,14 @@ export const Users = (props: UsersType) => {
                         </div>
                         <div className={s.button}>
                             {user.followed ?
-                                <button id={user.id} onClick={unfollow}
+                                <button id={user.id}
+                                        onClick={unfollow}
+                                        disabled={props.followingProgress.some(id => id === user.id.toString())}
                                         className={s.unfollow}>UNFOLLOW</button>
-                                : <button id={user.id} onClick={follow} className={s.follow}>FOLLOW</button>
+                                : <button id={user.id}
+                                          onClick={follow}
+                                          disabled={props.followingProgress.some(id => id === user.id.toString())}
+                                          className={s.follow}>FOLLOW</button>
                             }
                         </div>
                     </div>

@@ -11,7 +11,15 @@ import {
     UpdateNewPostTextAT
 } from "./reducers/profile-reducer";
 import {sidebarReducer} from "./reducers/sidebar-reducer";
-import {FollowAT, InitialStateType, SetAT, setCurrentPageAT, UnfollowAT, usersReducer} from "./reducers/users-reducer";
+import {
+    FollowAT,
+    InitialStateType,
+    SetAT,
+    setCurrentPageAT,
+    ToggleFollowingProgressAT,
+    UnfollowAT,
+    usersReducer
+} from "./reducers/users-reducer";
 import {ProfileType} from "../components/main/ProfilePage/Profile";
 import {PostType} from "../components/main/Posts/Posts";
 import {SetUserDataAT} from "./reducers/auth-reducer";
@@ -58,6 +66,7 @@ export type ActionType = AddPostAT
                         | setCurrentPageAT
                         | setUserProfileAT
                         | SetUserDataAT
+                        | ToggleFollowingProgressAT
 
 
 export const store: StorePropsType = {
@@ -111,7 +120,8 @@ export const store: StorePropsType = {
             users: [],
             pageSize: 0,
             totalUsersCount: 0,
-            currentPage: 0
+            currentPage: 0,
+            followingProgress: []
         }
     },
     _callSubscriber() {

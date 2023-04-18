@@ -1,4 +1,3 @@
-import React from 'react';
 import { UserType} from "../../components/Users/Users";
 import {ActionType} from "../store";
 
@@ -7,18 +6,21 @@ export type InitialStateType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
+    followingProgress: string[]
 }
 const initialState = {
     users: [],
     pageSize: 5,
     totalUsersCount: 20,
-    currentPage: 1
+    currentPage: 1,
+    followingProgress: []
 }
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
 export type FollowAT = {
     type: 'FOLLOW'
@@ -35,6 +37,11 @@ export type SetAT = {
 export type setCurrentPageAT = {
     type: 'SET-CURRENT-PAGE'
     currentPage: number
+}
+export type ToggleFollowingProgressAT = {
+    type: 'TOGGLE_IS_FOLLOWING_PROGRESS'
+    isFetching: boolean
+    userId: string
 }
 
 export const usersReducer = (state: InitialStateType = initialState,
@@ -54,6 +61,12 @@ export const usersReducer = (state: InitialStateType = initialState,
             return {
                 ...state,
                 currentPage: action.currentPage
+            }
+        case "TOGGLE_IS_FOLLOWING_PROGRESS":
+            return {
+                ...state,
+                followingProgress: action.isFetching ? [...state.followingProgress, action.userId]
+                    : [...state.followingProgress.filter(id => id !== action.userId)]
             }
         default: return state
     }
@@ -82,4 +95,7 @@ export const setCurrentPage = (currentPage: number): setCurrentPageAT => {
         type: SET_CURRENT_PAGE,
         currentPage
     }
+}
+export const toggleFollowingProgress = (isFetching: boolean, userId: string): ToggleFollowingProgressAT => {
+    return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId}
 }

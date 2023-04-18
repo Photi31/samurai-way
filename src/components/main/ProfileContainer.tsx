@@ -1,12 +1,12 @@
 import React from 'react';
 import {ProfilePage} from "./ProfilePage";
-import {res} from "../../App";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {setUserProfile} from "../../redux/reducers/profile-reducer";
 import {ProfileType} from "./ProfilePage/Profile";
 import {PostType} from "./Posts/Posts";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {profileAPI} from "../../api/api";
 
 type MapStateToPropsType = {
     profile: ProfileType
@@ -27,9 +27,9 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) userId = '2';
-        res.get(`profile/` + userId)
-            .then(response => {
-                this.props.setUserProfile(response.data)
+        profileAPI.getProfile(userId)
+            .then(data => {
+                this.props.setUserProfile(data)
             })
     }
 
