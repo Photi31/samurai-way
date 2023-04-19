@@ -1,7 +1,6 @@
 import React, {MouseEvent} from 'react';
 import s from './Users.module.css';
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
 
 export type UserType = {
     id: string
@@ -23,10 +22,10 @@ export type UsersType = {
     totalUsersCount: number
     currentPage: number
     followingProgress: string[]
-    unfollow: (userID: string) => void
-    follow: (userID: string) => void
     setCurrentPage: (currentPage: number) => void
     toggleFollowingProgress: (isFetching: boolean, userId: string) => void
+    followUser: (userId: string) => void
+    unfollowUser: (userId: string) => void
 }
 
 export const Users = (props: UsersType) => {
@@ -38,27 +37,11 @@ export const Users = (props: UsersType) => {
 
     const unfollow = (e: MouseEvent<HTMLButtonElement>) => {
         const userId = e.currentTarget.id
-        props.toggleFollowingProgress(true, userId)
-        usersAPI.deleteUser(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    props.unfollow(userId)
-                }
-                props.toggleFollowingProgress(false, userId)
-            })
-
+        props.unfollowUser(userId)
     }
     const follow = (e: MouseEvent<HTMLButtonElement>) => {
         const userId = e.currentTarget.id
-        props.toggleFollowingProgress(true, userId)
-        usersAPI.postUser(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    props.follow(userId)
-                }
-                props.toggleFollowingProgress(false, userId)
-            })
-
+        props.followUser(userId)
     }
 
     return (

@@ -15,11 +15,11 @@ export const usersAPI = {
         return res.get(`users?page=${currentPage}`)
             .then(response => response.data)
     },
-    postUser(userId: string) {
+    follow(userId: string) {
         return res.post(`/follow/${userId}`)
             .then(response => response.data)
     },
-    deleteUser(userId: string) {
+    unfollow(userId: string) {
         return res.delete(`/follow/${userId}`)
             .then(response => response.data)
     }
