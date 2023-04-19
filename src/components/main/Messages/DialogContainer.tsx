@@ -10,7 +10,8 @@ import {Dialog} from "./Dialog";
 const mapStateToProps = (state: AppStateType) => {
     return {
         messages: state.dialogsPage.dialogs.messages,
-        newMessageText: state.dialogsPage.newMessageText
+        newMessageText: state.dialogsPage.newMessageText,
+        isAuth: state.auth.isAuth
     }
 }
 const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {

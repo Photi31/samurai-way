@@ -1,5 +1,6 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import s from './Dialog.module.css'
+import {Redirect} from "react-router-dom";
 
 type DialogPropsType = {
     messages: {
@@ -7,6 +8,7 @@ type DialogPropsType = {
         message: string
     }[]
     newMessageText: string
+    isAuth: boolean
     onClickSendMessage: (textNewMessage: string) => void
     onChangeText: (newTextInArea: string) => void
 }
@@ -23,6 +25,8 @@ export const Dialog = (props: DialogPropsType) => {
         let newTextInArea = e.currentTarget.value
         props.onChangeText(newTextInArea)
     }
+
+    if (!props.isAuth) return <Redirect to={'/login'}/>
 
     return (
         <div className={s.messageBlock}>

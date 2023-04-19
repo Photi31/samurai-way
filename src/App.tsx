@@ -6,6 +6,7 @@ import {Messages} from "./components/main/Messages/Messages";
 import UsersContainer from "./components/Users/UsersContainer";
 import ProfileContainer from "./components/main/ProfileContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
+import {LoginPage} from "./components/login/LoginPage";
 
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
                 />
                 <Route path={'/users'}
                        render={() => <UsersContainer/>}
+                />
+                <Route path={'/login'}
+                       render={() => <LoginPage/>}
                 />
             </div>
         </div>

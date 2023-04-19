@@ -11,6 +11,7 @@ type MapStateToPropsType = {
     profile: ProfileType
     posts: Array<PostType>
     textInArea: string
+    isAuth: boolean
 }
 type MapDispatchPropsType = {
     getProfile: (userId: string) => void
@@ -33,6 +34,7 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
         return (
             <ProfilePage profile={this.props.profile}
                          posts={this.props.posts}
+                         isAuth={this.props.isAuth}
                          textInArea={this.props.textInArea}/>
         )
     }
@@ -42,7 +44,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
         posts: state.profilePage.posts,
-        textInArea: state.profilePage.textInArea
+        textInArea: state.profilePage.textInArea,
+        isAuth: state.auth.isAuth
     }
 }
 
