@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 import {ActionType, ProfilePagePropsType} from "../store";
 import {ProfileType} from "../../components/main/ProfilePage/Profile";
+import {profileAPI} from "../../api/api";
 
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const ADD_POST = 'ADD-POST'
@@ -85,5 +86,14 @@ export const setUserProfile = (profile: ProfileType): setUserProfileAT => {
     return {
         type: SET_USER_PROFILE,
         profile
+    }
+}
+
+export const getProfile = (userId: string) => {
+    return (dispatch: any) => {
+        profileAPI.getProfile(userId)
+            .then(data => {
+                dispatch(setUserProfile(data))
+            })
     }
 }

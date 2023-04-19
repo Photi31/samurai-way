@@ -1,4 +1,5 @@
 import {ActionType} from "../store";
+import {headerAPI} from "../../api/api";
 
 const SET_USER_DATE = 'SET-USER-DATE'
 
@@ -40,3 +41,15 @@ export const authReducer = (state = initState, action: ActionType): AuthStateTyp
 export const setAuthUserData = (userId: string, email: string, login: string): SetUserDataAT => ({
     type: SET_USER_DATE, data: {userId, email, login}
 })
+
+export const getAuthUser = () => {
+    return (dispatch: any) => {
+        headerAPI.get()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    const {id, login, email} = data.data
+                    dispatch(setAuthUserData(id, email, login))
+                }
+            })
+    }
+}

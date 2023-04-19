@@ -3,6 +3,10 @@
     height: 100px;
     /*background-color: #282c34;*/
     background-color: #112D32;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
@@ -10,7 +14,12 @@
 }
 
 .loginBlock {
-    float: right;
+    margin-right: 30px;
+    padding: 5px;
+    border: 1px solid #EFE2BA;
+    border-radius: 7px;
+    box-shadow: 0 0 5px 3px rgba(239, 226, 186, .5);
+    background-color: #163a41;
     color: #EFE2BA;
 }
 .loginBlock a {

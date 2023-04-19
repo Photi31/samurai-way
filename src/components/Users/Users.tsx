@@ -23,7 +23,6 @@ export type UsersType = {
     currentPage: number
     followingProgress: string[]
     setCurrentPage: (currentPage: number) => void
-    toggleFollowingProgress: (isFetching: boolean, userId: string) => void
     followUser: (userId: string) => void
     unfollowUser: (userId: string) => void
 }
