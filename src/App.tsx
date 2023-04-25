@@ -4,9 +4,9 @@ import {Navigation} from "./components/navigation/Navigation";
 import { Redirect, Route} from "react-router-dom";
 import {Messages} from "./components/main/Messages/Messages";
 import UsersContainer from "./components/Users/UsersContainer";
-import ProfileContainer from "./components/main/ProfileContainer";
 import HeaderContainer from "./components/header/HeaderContainer";
 import {LoginPage} from "./components/login/LoginPage";
+import ProfileContainer from "./components/main/ProfilePage/ProfileContainer";
 
 
 function App() {

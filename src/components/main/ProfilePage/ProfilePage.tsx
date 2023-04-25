@@ -1,9 +1,9 @@
 import React from 'react';
-import s from './Profile.module.css';
-import {MainImg} from "./MainImg/MainImg";
-import {Profile, ProfileType} from "./ProfilePage/Profile";
-import {SendMyPostContainer} from "./SendMyPost/SendMyPostContainer";
-import {Posts, PostType} from "./Posts/Posts";
+import s from '../Main.module.css';
+import {MainImg} from "../MainImg/MainImg";
+import {Profile, ProfileType} from "./Profile";
+import {SendMyPostContainer} from "../SendMyPost/SendMyPostContainer";
+import {Posts, PostType} from "../Posts/Posts";
 
 
 type  ProfilePageType = {

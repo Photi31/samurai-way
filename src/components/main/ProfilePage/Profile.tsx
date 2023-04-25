@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './Profile.module.css';
+import ProfileStatus from "./ProfileStatus";
 
 export type  ProfileType = {
     aboutMe: string
@@ -33,10 +34,8 @@ export function Profile(props: ProfilePropsType) {
                  src={props.profile.photos.small || avatar}/>
             <div className={s.profile__data}>
                 <h3 className={s.profile__title}>{props.profile.fullName}</h3>
-                <div className={s.profile__descr}>{props.profile.aboutMe}</div>
-            </div>
-            <div className={s.profile__data}>
-                <h3 className={s.profile__title}>{props.profile.lookingForAJob ? 'Ищу работу' : 'Уже работаю'}</h3>
+                <ProfileStatus status={props.profile.aboutMe}/>
+                <h4>{props.profile.lookingForAJob ? 'Ищу работу' : 'Уже работаю'}</h4>
                 {props.profile.lookingForAJob && <div className={s.profile__descr}>{props.profile.lookingForAJobDescription}</div>}
             </div>
         </div>

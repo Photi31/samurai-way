@@ -5,6 +5,9 @@ import {AppStateType} from "../../redux/redux-store";
 import {
     setCurrentPage, getUsers, followUser, unfollowUser
 } from "../../redux/reducers/users-reducer";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
+import {Dialog} from "../main/Messages/Dialog";
+import {compose} from "redux";
 
 type UsersContainerType = {
     users: Array<UserType>
@@ -41,6 +44,9 @@ class UsersContainer extends React.Component<UsersContainerType> {
     }
 }
 
+const AuthRedirectComponent = withAuthRedirect(UsersContainer)
+
+
 const mapStateToProps = (state: AppStateType) => {
     return {
         users: state.usersPage.users,
@@ -51,12 +57,7 @@ const mapStateToProps = (state: AppStateType) => {
     }
 }
 
-export default connect(
-    mapStateToProps,
-    {
-        setCurrentPage,
-        getUsers,
-        followUser,
-        unfollowUser,
-    }
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, {setCurrentPage, getUsers, followUser, unfollowUser}),
+    withAuthRedirect
 )(UsersContainer)
