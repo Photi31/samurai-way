@@ -47,7 +47,7 @@ export const Users = (props: UsersType) => {
         <div className={s.wrapper}>
             <div className={s.pages}>
                 {pages.map(p => {
-                    return <span id={String(p)}
+                    return <span key={p} id={String(p)}
                                  className={props.currentPage === p ? s.selectedPage : ''}
                                  onClick={() => props.setCurrentPage(p)}
                     >{p}</span>

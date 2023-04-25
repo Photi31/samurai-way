@@ -37,7 +37,7 @@ const initialState: ProfilePagePropsType = {
             small: "https://cs12.pikabu.ru/post_img/big/2022/04/16/4/1650082940124498859.jpg",
             large: null
         },
-        userId: 31011988
+        userId: 28461
     },
     posts: [
         {_id: v1(), title: 'Post 1', descr: "This is first post about me..."},

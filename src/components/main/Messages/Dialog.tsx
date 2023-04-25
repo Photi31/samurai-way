@@ -1,14 +1,13 @@
 import React, {ChangeEvent, RefObject} from 'react';
 import s from './Dialog.module.css'
-import {Redirect} from "react-router-dom";
 
-type DialogPropsType = {
+
+export type DialogPropsType = {
     messages: {
         _id: string
         message: string
     }[]
     newMessageText: string
-    isAuth: boolean
     onClickSendMessage: (textNewMessage: string) => void
     onChangeText: (newTextInArea: string) => void
 }
@@ -26,17 +25,15 @@ export const Dialog = (props: DialogPropsType) => {
         props.onChangeText(newTextInArea)
     }
 
-    if (!props.isAuth) return <Redirect to={'/login'}/>
-
     return (
         <div className={s.messageBlock}>
             {props.messages.map(el => {
                 return (
-                    <div className={s.messageItem}>
+                    <div key={el._id} className={s.messageItem}>
                         <img alt='avatar'
                              src={'https://cs14.pikabu.ru/post_img/big/2022/04/16/4/1650081838119523257.jpg'}
                              className={s.avatar}/>
-                        <div className={s.message} key={el._id}>{el.message}</div>
+                        <div className={s.message} >{el.message}</div>
                     </div>
 
                 )

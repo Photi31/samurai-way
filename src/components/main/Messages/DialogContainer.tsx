@@ -4,16 +4,19 @@ import {ActionType} from "../../../redux/store";
 import {addMessageActionCreator, updateNewMessageTextActionCreator} from "../../../redux/reducers/dialogs-reducer";
 import {AppStateType} from "../../../redux/redux-store";
 import {Dialog} from "./Dialog";
+import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 
 
 
 const mapStateToProps = (state: AppStateType) => {
     return {
         messages: state.dialogsPage.dialogs.messages,
-        newMessageText: state.dialogsPage.newMessageText,
-        isAuth: state.auth.isAuth
+        newMessageText: state.dialogsPage.newMessageText
     }
 }
+
+const AuthRedirectComponent = withAuthRedirect(Dialog)
+
 const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
     return {
         onClickSendMessage: (textNewMessage: string) => {
@@ -25,4 +28,4 @@ const mapDispatchToProps = (dispatch: (action: ActionType) => void) => {
     }
 }
 
-export const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(Dialog)
+export const DialogContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
