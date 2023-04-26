@@ -7,7 +7,7 @@ import {
 import {
     AddPostAT,
     profileReducer,
-    setUserProfileAT,
+    setUserProfileAT, setUserStatusAT,
     UpdateNewPostTextAT
 } from "./reducers/profile-reducer";
 import {sidebarReducer} from "./reducers/sidebar-reducer";
@@ -41,6 +41,7 @@ export type ProfilePagePropsType = {
     profile: ProfileType
     posts: Array<PostType>
     textInArea: string
+    status: string
 }
 export type DialogsPagePropsType = {
     dialogs: {
@@ -67,6 +68,7 @@ export type ActionType = AddPostAT
                         | setUserProfileAT
                         | SetUserDataAT
                         | ToggleFollowingProgressAT
+                        | setUserStatusAT
 
 
 export const store: StorePropsType = {
@@ -91,7 +93,8 @@ export const store: StorePropsType = {
                 userId: 1
             },
             posts: [],
-            textInArea: ''
+            textInArea: '',
+            status: ''
         },
         dialogsPage: {
             dialogs: {

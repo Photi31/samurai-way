@@ -10,6 +10,8 @@ type  ProfilePageType = {
     profile: ProfileType
     posts: Array<PostType>
     textInArea: string
+    status: string
+    updateStatus: (status: string) => void
 }
 
 
@@ -18,7 +20,10 @@ export function ProfilePage (props: ProfilePageType) {
     return (
         <main className={s.main}>
             <MainImg/>
-            <Profile profile={props.profile}/>
+            <Profile profile={props.profile}
+                     status={props.status}
+                     updateStatus={props.updateStatus}
+            />
             <SendMyPostContainer />
             <Posts posts={props.posts}/>
         </main>

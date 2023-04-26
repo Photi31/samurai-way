@@ -23,6 +23,8 @@ export type  ProfileType = {
 
 type ProfilePropsType = {
     profile: ProfileType
+    status: string
+    updateStatus: (status: string) => void
 }
 
 export function Profile(props: ProfilePropsType) {
@@ -34,7 +36,8 @@ export function Profile(props: ProfilePropsType) {
                  src={props.profile.photos.small || avatar}/>
             <div className={s.profile__data}>
                 <h3 className={s.profile__title}>{props.profile.fullName}</h3>
-                <ProfileStatus status={props.profile.aboutMe}/>
+                <ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+                <div>Обо мне: {props.profile.aboutMe}</div>
                 <h4>{props.profile.lookingForAJob ? 'Ищу работу' : 'Уже работаю'}</h4>
                 {props.profile.lookingForAJob && <div className={s.profile__descr}>{props.profile.lookingForAJobDescription}</div>}
             </div>
