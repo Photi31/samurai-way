@@ -2,6 +2,7 @@ import {v1} from "uuid";
 import {ActionType, ProfilePagePropsType} from "../store";
 import {ProfileType} from "../../components/main/ProfilePage/Profile";
 import {profileAPI} from "../../api/api";
+import {Dispatch} from "redux";
 
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const ADD_POST = 'ADD-POST'
@@ -74,7 +75,7 @@ export const profileReducer = (state: ProfilePagePropsType = initialState, actio
             return  {...state, status: action.status}
         }
         case "SET-USER-PROFILE":
-            return {profile: action.profile, posts: [], textInArea: '', status: ''}
+            return {...state, profile: action.profile}
         default: return state
     }
 }
@@ -105,23 +106,25 @@ export const setUserStatus = (status: string): setUserStatusAT => {
 }
 
 export const getProfile = (userId: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionType>) => {
         profileAPI.getProfile(userId)
             .then(data => {
+                console.log('profile: ', data)
                 dispatch(setUserProfile(data))
             })
     }
 }
 export const getStatus = (userId: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionType>) => {
         profileAPI.getStatus(userId)
             .then(data => {
+                console.log(data)
                 dispatch(setUserStatus(data))
             })
     }
 }
 export const updateStatus = (status: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionType>) => {
         profileAPI.updateStatus(status)
             .then(data => {
                 if (data.resultCode === 0) dispatch(setUserStatus(status))

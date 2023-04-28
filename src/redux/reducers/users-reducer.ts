@@ -1,6 +1,7 @@
 import {UserType} from "../../components/Users/Users";
 import {ActionType} from "../store";
 import {usersAPI} from "../../api/api";
+import {Dispatch} from "redux";
 
 export type InitialStateType = {
     users: Array<UserType>
@@ -105,7 +106,7 @@ export const toggleFollowingProgress = (isFetching: boolean, userId: string): To
 }
 
 export const getUsers = (currentPage: number) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionType>) => {
         dispatch(setCurrentPage(currentPage))
         usersAPI.getUsers(currentPage)
             .then(data => {
@@ -120,7 +121,7 @@ export const getUsers = (currentPage: number) => {
     }
 }
 export const followUser = (userId: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionType>) => {
         dispatch(toggleFollowingProgress(true, userId))
         usersAPI.follow(userId)
             .then(data => {
@@ -132,7 +133,7 @@ export const followUser = (userId: string) => {
     }
 }
 export const unfollowUser = (userId: string) => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionType>) => {
         dispatch(toggleFollowingProgress(true, userId))
         usersAPI.unfollow(userId)
             .then(data => {

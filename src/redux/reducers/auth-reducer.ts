@@ -1,5 +1,6 @@
 import {ActionType} from "../store";
 import {headerAPI} from "../../api/api";
+import {Dispatch} from "redux";
 
 const SET_USER_DATE = 'SET-USER-DATE'
 
@@ -43,7 +44,7 @@ export const setAuthUserData = (userId: string, email: string, login: string): S
 })
 
 export const getAuthUser = () => {
-    return (dispatch: any) => {
+    return (dispatch: Dispatch<ActionType>) => {
         headerAPI.get()
             .then(data => {
                 if (data.resultCode === 0) {
