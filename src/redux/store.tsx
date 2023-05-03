@@ -2,13 +2,11 @@ import {v1} from "uuid";
 import {
     AddMessageAT,
     dialogsReducer,
-    UpdateNewMessageTextAT
 } from "./reducers/dialogs-reducer";
 import {
     AddPostAT,
     profileReducer,
     setUserProfileAT, setUserStatusAT,
-    UpdateNewPostTextAT
 } from "./reducers/profile-reducer";
 import {sidebarReducer} from "./reducers/sidebar-reducer";
 import {
@@ -40,7 +38,6 @@ export type StatePropsType = {
 export type ProfilePagePropsType = {
     profile: ProfileType
     posts: Array<PostType>
-    textInArea: string
     status: string
 }
 export type DialogsPagePropsType = {
@@ -54,13 +51,10 @@ export type DialogsPagePropsType = {
             message: string
         }[]
     }
-    newMessageText: string
 }
 export type SidebarPropsType = {}
 export type ActionType = AddPostAT
-                        | UpdateNewPostTextAT
                         | AddMessageAT
-                        | UpdateNewMessageTextAT
                         | FollowAT
                         | UnfollowAT
                         | SetAT
@@ -93,7 +87,6 @@ export const store: StorePropsType = {
                 userId: 1
             },
             posts: [],
-            textInArea: '',
             status: ''
         },
         dialogsPage: {
@@ -116,7 +109,6 @@ export const store: StorePropsType = {
                     {_id: v1(), message: 'Sasha'}
                 ]
             },
-            newMessageText: ''
         },
         sidebar: {},
         usersPage: {

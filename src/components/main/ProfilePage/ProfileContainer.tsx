@@ -12,7 +12,6 @@ import {compose} from "redux";
 type MapStateToPropsType = {
     profile: ProfileType
     posts: Array<PostType>
-    textInArea: string
     status: string
 }
 type MapDispatchPropsType = {
@@ -40,7 +39,6 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
         return (
             <ProfilePage profile={this.props.profile}
                          posts={this.props.posts}
-                         textInArea={this.props.textInArea}
                          status={this.props.status}
                          updateStatus={this.props.updateStatus}
             />
@@ -52,7 +50,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
         posts: state.profilePage.posts,
-        textInArea: state.profilePage.textInArea,
         status: state.profilePage.status
     }
 }

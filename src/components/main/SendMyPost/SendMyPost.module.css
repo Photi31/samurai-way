@@ -8,7 +8,7 @@
     text-align: center;
 }
 
-.myPost div {
+.myPostForm {
     margin-top: 10px;
     display: flex;
     flex-direction: row;
@@ -17,12 +17,12 @@
 
 }
 
-.myPost pre {
+.myPostForm pre {
     white-space: pre-line;
     margin: 0;
 }
 
-.myPost textarea {
+.myPostForm textarea {
     width: 800px;
     border: none;
     border-radius: 10px;
@@ -32,16 +32,16 @@
     resize: none;
 }
 
-.myPost textarea::-webkit-scrollbar {
+.myPostForm textarea::-webkit-scrollbar {
     visibility: hidden;
     width: 0px;
 }
 
-.myPost textarea:focus {
+.myPostForm textarea:focus {
     outline: none;
 }
 
-.myPost button {
+.myPostForm button {
     height: 45px;
     width: 110px;
     display: block;

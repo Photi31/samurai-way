@@ -1,40 +1,44 @@
-import React, {ChangeEvent, RefObject} from 'react';
+import React from 'react';
 import s from './SendMyPost.module.css';
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 type SendMyPostPropsType = {
     addPost: (textNewPost: string) => void
-    updateNewPostText: (newTextInArea: string) => void
-    textInArea: string
 }
+
+type FormDataType = {
+    newPostText: string
+}
+
+const AddPostForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit} className={s.myPostForm}>
+                <pre>
+                    <Field component='textarea'
+                           name='newPostText'
+                           placeholder={'Write your post...'}
+                    />
+                </pre>
+            <button>Send</button>
+        </form>
+    )
+}
+
+const AddPostReduxForm = reduxForm<FormDataType>({
+    form: 'postAddPostForm'
+})(AddPostForm)
 
 export function SendMyPost(props: SendMyPostPropsType) {
 
-    const newPostElement: RefObject<HTMLTextAreaElement> = React.createRef()
-
-    const onClickHandler = () => {
-        let textNewPost = newPostElement.current?.value
-        if (textNewPost) props.addPost(textNewPost)
-    }
-
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let newTextInArea = e.currentTarget.value
-        props.updateNewPostText(newTextInArea)
+    const addNewPost = (values: FormDataType) => {
+        props.addPost(values.newPostText)
     }
 
     return (
         <div className={s.myPost}>
             <h3>My posts</h3>
-            <div>
-                <pre>
-                    <textarea
-                        value={props.textInArea}
-                        onChange={onChangeHandler}
-                        ref={newPostElement}
-                        placeholder={'Write your post...'}>
-                    </textarea>
-                </pre>
-                <button onClick={onClickHandler}>Send</button>
-            </div>
+            <AddPostReduxForm onSubmit={addNewPost}/>
         </div>
     )
 }
+

@@ -4,7 +4,6 @@ import {ProfileType} from "../../components/main/ProfilePage/Profile";
 import {profileAPI} from "../../api/api";
 import {Dispatch} from "redux";
 
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const ADD_POST = 'ADD-POST'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_USER_STATUS = 'SET-USER-STATUS'
@@ -12,10 +11,6 @@ const SET_USER_STATUS = 'SET-USER-STATUS'
 export type AddPostAT = {
     type: 'ADD-POST'
     textNewPost: string
-}
-export type UpdateNewPostTextAT = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newTextInArea: string
 }
 export type setUserProfileAT = {
     type: 'SET-USER-PROFILE'
@@ -50,7 +45,6 @@ const initialState: ProfilePagePropsType = {
         {_id: v1(), title: 'Post 2', descr: "This is post about my family..."},
         {_id: v1(), title: 'Post 3', descr: "This is post about my jobs..."},
     ],
-    textInArea: '',
     status: ''
 }
 
@@ -65,11 +59,7 @@ export const profileReducer = (state: ProfilePagePropsType = initialState, actio
             return  {
                 ...state,
                 posts: [...state.posts, newPost],
-                textInArea: ''
             }
-        }
-        case "UPDATE-NEW-POST-TEXT": {
-            return  {...state, textInArea: action.newTextInArea}
         }
         case "SET-USER-STATUS": {
             return  {...state, status: action.status}
@@ -84,12 +74,6 @@ export const addPostActionCreator = (textNewPost: string): AddPostAT => {
     return {
         type: ADD_POST,
         textNewPost: textNewPost
-    }
-}
-export const updateNewPostTextActionCreator = (newTextInArea: string): UpdateNewPostTextAT => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newTextInArea: newTextInArea
     }
 }
 export const setUserProfile = (profile: ProfileType): setUserProfileAT => {

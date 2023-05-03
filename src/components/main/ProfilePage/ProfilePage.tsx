@@ -9,7 +9,6 @@ import {Posts, PostType} from "../Posts/Posts";
 type  ProfilePageType = {
     profile: ProfileType
     posts: Array<PostType>
-    textInArea: string
     status: string
     updateStatus: (status: string) => void
 }

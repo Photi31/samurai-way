@@ -8,7 +8,6 @@ type FormDataType = {
 }
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
-    console.log(props)
     return <form onSubmit={props.handleSubmit}>
         <div>
             <Field placeholder={'Login'} name={'login'} component={'input'}/>
