@@ -22,25 +22,6 @@
     margin: 0;
 }
 
-.myPostForm textarea {
-    width: 800px;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 16px;
-    line-height: 24px;
-    resize: none;
-}
-
-.myPostForm textarea::-webkit-scrollbar {
-    visibility: hidden;
-    width: 0px;
-}
-
-.myPostForm textarea:focus {
-    outline: none;
-}
-
 .myPostForm button {
     height: 45px;
     width: 110px;
