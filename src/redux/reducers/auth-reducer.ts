@@ -1,5 +1,5 @@
 import {ActionType} from "../store";
-import {headerAPI} from "../../api/api";
+import {authAPI} from "../../api/api";
 import {Dispatch} from "redux";
 
 const SET_USER_DATE = 'SET-USER-DATE'
@@ -12,10 +12,11 @@ export type AuthStateType = {
 }
 export type SetUserDataAT = {
     type: 'SET-USER-DATE'
-    data: {
+    payload: {
         userId: string
         email: string
         login: string
+        isAuth: boolean
     }
 }
 
@@ -31,25 +32,46 @@ export const authReducer = (state = initState, action: ActionType): AuthStateTyp
         case SET_USER_DATE:
             return {
                 ...state,
-                ...action.data,
-                isAuth: true
+                ...action.payload
             }
         default:
             return state
     }
 }
 
-export const setAuthUserData = (userId: string, email: string, login: string): SetUserDataAT => ({
-    type: SET_USER_DATE, data: {userId, email, login}
+export const setAuthUserData = (userId: string, email: string, login: string, isAuth: boolean): SetUserDataAT => ({
+    type: SET_USER_DATE, payload: {userId, email, login, isAuth},
 })
 
 export const getAuthUser = () => {
     return (dispatch: Dispatch<ActionType>) => {
-        headerAPI.get()
+        authAPI.me()
             .then(data => {
                 if (data.resultCode === 0) {
                     const {id, login, email} = data.data
-                    dispatch(setAuthUserData(id, email, login))
+                    dispatch(setAuthUserData(id, email, login, true))
+                }
+            })
+    }
+}
+export const login = (email: string, password: string, rememberMe: boolean) => {
+    return (dispatch: Dispatch<ActionType>) => {
+        authAPI.login(email, password, rememberMe)
+            .then(data => {
+                if (data.resultCode === 0) {
+                    // @ts-ignore
+                    dispatch(getAuthUser())
+                }
+            })
+    }
+}
+export const logout = () => {
+    return (dispatch: Dispatch<ActionType>) => {
+        authAPI.logout()
+            .then(data => {
+                if (data.resultCode === 0) {
+                    // @ts-ignore
+                    dispatch(setAuthUserData(null, null, null, false))
                 }
             })
     }

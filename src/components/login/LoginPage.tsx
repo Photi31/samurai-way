@@ -1,6 +1,6 @@
 import React from "react";
 import s from './Login.module.css'
-import {Login} from "./Login";
+import Login from "./Login";
 
 type LoginPageType = {
 

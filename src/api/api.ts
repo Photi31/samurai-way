@@ -24,12 +24,6 @@ export const usersAPI = {
             .then(response => response.data)
     }
 }
-export const headerAPI = {
-    get() {
-        return res.get(`auth/me`)
-            .then(response => response.data)
-    }
-}
 
 export const profileAPI = {
     getProfile (userId: string) {
@@ -44,4 +38,20 @@ export const profileAPI = {
         return res.put(`profile/status/`, {status: status})
             .then(response => response.data)
     }
+}
+
+export const authAPI = {
+    me () {
+        return res.get(`auth/me`)
+            .then(response => response.data)
+    },
+    login (email: string, password: string, rememberMe: boolean = false) {
+        return res.post(`auth/login`, {email, password, rememberMe})
+            .then(response => response.data)
+    },
+    logout () {
+        return res.delete(`auth/login`)
+            .then(response => response.data)
+    }
+
 }

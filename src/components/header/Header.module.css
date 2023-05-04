@@ -13,7 +13,7 @@
     height: 100%;
 }
 
-.loginBlock {
+.loginBlock{
     margin-right: 30px;
     padding: 5px;
     border: 1px solid #EFE2BA;
@@ -21,6 +21,15 @@
     box-shadow: 0 0 5px 3px rgba(239, 226, 186, .5);
     background-color: #163a41;
     color: #EFE2BA;
+}
+.loginBlock button {
+    background-color: #163a41;
+    color: #EFE2BA;
+    border: none;
+    cursor: pointer;
+}
+.loginBlock button:hover {
+    color: indianred;
 }
 .loginBlock a {
     color: #EFE2BA;
