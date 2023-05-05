@@ -18,33 +18,11 @@ const initialState = {
     followingProgress: []
 }
 
-const FOLLOW = 'FOLLOW'
-const UNFOLLOW = 'UNFOLLOW'
-const SET_USERS = 'SET-USERS'
-const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
-const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
-
-export type FollowAT = {
-    type: 'FOLLOW'
-    userID: string
-}
-export type UnfollowAT = {
-    type: 'UNFOLLOW'
-    userID: string
-}
-export type SetAT = {
-    type: 'SET-USERS'
-    initialState: InitialStateType
-}
-export type setCurrentPageAT = {
-    type: 'SET-CURRENT-PAGE'
-    currentPage: number
-}
-export type ToggleFollowingProgressAT = {
-    type: 'TOGGLE_IS_FOLLOWING_PROGRESS'
-    isFetching: boolean
-    userId: string
-}
+export type FollowAT = ReturnType<typeof follow>
+export type UnfollowAT = ReturnType<typeof unfollow>
+export type SetAT = ReturnType<typeof setUsers>
+export type setCurrentPageAT =ReturnType<typeof setCurrentPage>
+export type ToggleFollowingProgressAT =ReturnType<typeof toggleFollowingProgress>
 
 export const usersReducer = (state: InitialStateType = initialState,
                              action: ActionType): InitialStateType => {
@@ -77,36 +55,15 @@ export const usersReducer = (state: InitialStateType = initialState,
     }
 }
 
-export const follow = (userID: string): FollowAT => {
-    return {
-        type: FOLLOW,
-        userID
-    }
-}
-export const unfollow = (userID: string): UnfollowAT => {
-    return {
-        type: UNFOLLOW,
-        userID
-    }
-}
-export const setUsers = (initialState: InitialStateType): SetAT => {
-    return {
-        type: SET_USERS,
-        initialState
-    }
-}
-export const setCurrentPage = (currentPage: number): setCurrentPageAT => {
-    return {
-        type: SET_CURRENT_PAGE,
-        currentPage
-    }
-}
-export const toggleFollowingProgress = (isFetching: boolean, userId: string): ToggleFollowingProgressAT => {
-    return {type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId}
+export const follow = (userID: string) => ({ type: 'FOLLOW', userID } as const)
+export const unfollow = (userID: string) => ({ type: 'UNFOLLOW', userID} as const)
+export const setUsers = (initialState: InitialStateType) => ({ type: 'SET-USERS', initialState} as const)
+export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
+export const toggleFollowingProgress = (isFetching: boolean, userId: string) => {
+    return {type: 'TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId} as const
 }
 
-export const getUsers = (currentPage: number) => {
-    return (dispatch: Dispatch<ActionType>) => {
+export const getUsers = (currentPage: number) => (dispatch: Dispatch<ActionType>) => {
         dispatch(setCurrentPage(currentPage))
         usersAPI.getUsers(currentPage)
             .then(data => {
@@ -118,29 +75,24 @@ export const getUsers = (currentPage: number) => {
                     followingProgress: []
                 }))
             })
-    }
 }
-export const followUser = (userId: string) => {
-    return (dispatch: Dispatch<ActionType>) => {
-        dispatch(toggleFollowingProgress(true, userId))
-        usersAPI.follow(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(follow(userId))
-                }
-                dispatch(toggleFollowingProgress(false, userId))
-            })
-    }
+export const followUser = (userId: string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(toggleFollowingProgress(true, userId))
+    usersAPI.follow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(follow(userId))
+            }
+            dispatch(toggleFollowingProgress(false, userId))
+        })
 }
-export const unfollowUser = (userId: string) => {
-    return (dispatch: Dispatch<ActionType>) => {
-        dispatch(toggleFollowingProgress(true, userId))
-        usersAPI.unfollow(userId)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(unfollow(userId))
-                }
-                dispatch(toggleFollowingProgress(false, userId))
-            })
-    }
+export const unfollowUser = (userId: string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(toggleFollowingProgress(true, userId))
+    usersAPI.unfollow(userId)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unfollow(userId))
+            }
+            dispatch(toggleFollowingProgress(false, userId))
+        })
 }

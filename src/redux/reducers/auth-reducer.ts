@@ -2,23 +2,13 @@ import {ActionType} from "../store";
 import {authAPI} from "../../api/api";
 import {Dispatch} from "redux";
 
-const SET_USER_DATE = 'SET-USER-DATE'
-
 export type AuthStateType = {
     userId: string | null
     email: string | null
     login: string | null
     isAuth: boolean
 }
-export type SetUserDataAT = {
-    type: 'SET-USER-DATE'
-    payload: {
-        userId: string
-        email: string
-        login: string
-        isAuth: boolean
-    }
-}
+export type SetUserDataAT = ReturnType<typeof setAuthUserData>
 
 const initState: AuthStateType = {
     userId: null,
@@ -29,7 +19,7 @@ const initState: AuthStateType = {
 
 export const authReducer = (state = initState, action: ActionType): AuthStateType => {
     switch (action.type) {
-        case SET_USER_DATE:
+        case 'SET-USER-DATE':
             return {
                 ...state,
                 ...action.payload
@@ -39,9 +29,9 @@ export const authReducer = (state = initState, action: ActionType): AuthStateTyp
     }
 }
 
-export const setAuthUserData = (userId: string, email: string, login: string, isAuth: boolean): SetUserDataAT => ({
-    type: SET_USER_DATE, payload: {userId, email, login, isAuth},
-})
+export const setAuthUserData = (userId: string, email: string, login: string, isAuth: boolean) => (
+    {type: 'SET-USER-DATE', payload: {userId, email, login, isAuth}} as const
+)
 
 export const getAuthUser = () => {
     return (dispatch: Dispatch<ActionType>) => {

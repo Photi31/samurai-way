@@ -1,12 +1,7 @@
 import {v1} from "uuid";
 import {ActionType, DialogsPagePropsType} from "../store";
 
-const ADD_MESSAGE = 'ADD-MESSAGE'
-
-export type AddMessageAT = {
-    type: 'ADD-MESSAGE'
-    textNewMessage: string
-}
+export type AddMessageAT = ReturnType<typeof addMessageActionCreator>
 
 const initialState: DialogsPagePropsType = {
     dialogs: {
@@ -50,9 +45,6 @@ export const dialogsReducer = (state: DialogsPagePropsType = initialState,
     }
 }
 
-export const addMessageActionCreator = (textNewMessage: string): AddMessageAT => {
-    return {
-        type: ADD_MESSAGE,
-        textNewMessage: textNewMessage
-    }
+export const addMessageActionCreator = (textNewMessage: string) => {
+    return {type: 'ADD-MESSAGE', textNewMessage: textNewMessage} as const
 }
