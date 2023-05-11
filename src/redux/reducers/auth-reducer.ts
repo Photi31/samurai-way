@@ -1,6 +1,8 @@
 import {ActionType} from "../store";
 import {authAPI} from "../../api/api";
 import {Dispatch} from "redux";
+import {stopSubmit} from "redux-form";
+import {changePreloaderStatus} from "./preloaderReducer";
 
 export type AuthStateType = {
     userId: string | null
@@ -29,12 +31,13 @@ export const authReducer = (state = initState, action: ActionType): AuthStateTyp
     }
 }
 
-export const setAuthUserData = (userId: string, email: string, login: string, isAuth: boolean) => (
+export const setAuthUserData = (userId: string | null, email: string | null, login: string | null, isAuth: boolean) => (
     {type: 'SET-USER-DATE', payload: {userId, email, login, isAuth}} as const
 )
 
 export const getAuthUser = () => {
-    return (dispatch: Dispatch<ActionType>) => {
+    return (dispatch: Dispatch) => {
+        dispatch(changePreloaderStatus(true))
         authAPI.me()
             .then(data => {
                 if (data.resultCode === 0) {
@@ -42,27 +45,34 @@ export const getAuthUser = () => {
                     dispatch(setAuthUserData(id, email, login, true))
                 }
             })
+            .finally( () => dispatch(changePreloaderStatus(false)))
     }
 }
 export const login = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: Dispatch<ActionType>) => {
+    return (dispatch: Dispatch) => {
+        dispatch(changePreloaderStatus(true))
         authAPI.login(email, password, rememberMe)
             .then(data => {
                 if (data.resultCode === 0) {
                     // @ts-ignore
                     dispatch(getAuthUser())
+                } else {
+                    const message = data.messages.length > 0 ? data.messages[0] : 'Some error'
+                    dispatch(stopSubmit('login', {_error: message}))
                 }
             })
+            .finally( () => dispatch(changePreloaderStatus(false)))
     }
 }
 export const logout = () => {
-    return (dispatch: Dispatch<ActionType>) => {
+    return (dispatch: Dispatch) => {
+        dispatch(changePreloaderStatus(true))
         authAPI.logout()
             .then(data => {
                 if (data.resultCode === 0) {
-                    // @ts-ignore
                     dispatch(setAuthUserData(null, null, null, false))
                 }
             })
+            .finally( () => dispatch(changePreloaderStatus(false)))
     }
 }

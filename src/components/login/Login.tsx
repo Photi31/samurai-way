@@ -6,14 +6,18 @@ import {connect} from "react-redux";
 import {login} from "../../redux/reducers/auth-reducer";
 import {Redirect} from "react-router-dom";
 import {AppStateType} from "../../redux/redux-store";
+import s from './../common/FormsControls/FormsControls.module.css'
+import {Preloader} from "../../utils/preloader/Preloader";
 
 type FormDataType = {
     email: string
     password: string
     rememberMe: boolean
+    error: string
 }
 type LoginType = {
     isAuth: boolean
+    preloader: boolean
     login: (email: string, password: string, rememberMe: boolean) => void
 }
 
@@ -42,6 +46,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                    component={'input'}
             /> remember me
         </div>
+        {props.error && <div className={s.formSummaryError}>{props.error}</div>}
         <div>
             <button>Login</button>
         </div>
@@ -59,7 +64,7 @@ const Login = (props: LoginType) => {
     if (props.isAuth) {
         return <Redirect to={'/profile'}/>
     }
-
+    if (props.preloader) return <Preloader/>
     return <div>
         <h1>Login</h1>
         <LoginReduxForm onSubmit={onSubmit}/>
@@ -67,7 +72,8 @@ const Login = (props: LoginType) => {
 }
 
 const  mapStateToProps = (state: AppStateType) => ({
-    isAuth: state.auth.isAuth
+    isAuth: state.auth.isAuth,
+    preloader: state.preloader.preloader
 })
 
 export default connect(mapStateToProps, {login})(Login)

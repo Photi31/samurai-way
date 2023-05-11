@@ -8,11 +8,13 @@ import {PostType} from "../Posts/Posts";
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../../hoc/withAuthRedirect";
 import {compose} from "redux";
+import {Preloader} from "../../../utils/preloader/Preloader";
 
 type MapStateToPropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     posts: Array<PostType>
     status: string
+    preloader: boolean
 }
 type MapDispatchPropsType = {
     getProfile: (userId: string) => void
@@ -36,6 +38,7 @@ class ProfileContainer extends React.Component<ProfileContainerType> {
     }
 
     render() {
+        if (this.props.preloader) return <Preloader/>
         return (
             <ProfilePage profile={this.props.profile}
                          posts={this.props.posts}
@@ -50,7 +53,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profile: state.profilePage.profile,
         posts: state.profilePage.posts,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        preloader: state.preloader.preloader
     }
 }
 

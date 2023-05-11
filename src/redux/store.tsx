@@ -21,6 +21,7 @@ import {
 import {ProfileType} from "../components/main/ProfilePage/Profile";
 import {PostType} from "../components/main/Posts/Posts";
 import {SetUserDataAT} from "./reducers/auth-reducer";
+import {ChangePreloaderStatusType, preloaderReducer, PreloaderStateType} from "./reducers/preloaderReducer";
 
 export type StorePropsType = {
     _state: StatePropsType
@@ -34,9 +35,10 @@ export type StatePropsType = {
     dialogsPage: DialogsPagePropsType
     sidebar: SidebarPropsType
     usersPage: InitialStateType
+    preloader: PreloaderStateType
 }
 export type ProfilePagePropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     posts: Array<PostType>
     status: string
 }
@@ -63,6 +65,7 @@ export type ActionType = AddPostAT
                         | SetUserDataAT
                         | ToggleFollowingProgressAT
                         | setUserStatusAT
+                        | ChangePreloaderStatusType
 
 
 export const store: StorePropsType = {
@@ -117,6 +120,9 @@ export const store: StorePropsType = {
             totalUsersCount: 0,
             currentPage: 0,
             followingProgress: []
+        },
+        preloader: {
+            preloader: false
         }
     },
     _callSubscriber() {
@@ -132,6 +138,7 @@ export const store: StorePropsType = {
         dialogsReducer(this._state.dialogsPage, action)
         usersReducer(this._state.usersPage, action)
         sidebarReducer(this._state.sidebar, action)
+        preloaderReducer(this._state.preloader, action)
         this._callSubscriber(this._state)
     }
 }

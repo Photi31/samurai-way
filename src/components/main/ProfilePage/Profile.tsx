@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Profile.module.css';
 import ProfileStatus from "./ProfileStatus";
+import {Preloader} from "../../../utils/preloader/Preloader";
 
 export type  ProfileType = {
     aboutMe: string
@@ -22,7 +23,7 @@ export type  ProfileType = {
 }
 
 type ProfilePropsType = {
-    profile: ProfileType
+    profile: ProfileType | null
     status: string
     updateStatus: (status: string) => void
 }
@@ -30,7 +31,7 @@ type ProfilePropsType = {
 export function Profile(props: ProfilePropsType) {
     const avatar = "https://cs12.pikabu.ru/post_img/big/2022/04/16/4/1650082940124498859.jpg"
 
-    return (
+    if (props.profile) return (
         <div key={props.profile.userId} className={s.profile}>
             <img className={s.profile__avatar} alt={'avatar'}
                  src={props.profile.photos.small || avatar}/>
@@ -43,17 +44,5 @@ export function Profile(props: ProfilePropsType) {
             </div>
         </div>
     )
+    else return <Preloader/>
 }
-
-// data:
-//     aboutMe: "я круто чувак 1001%"
-//     contacts: {facebook: 'facebook.com',
-//            website: null, vk: 'vk.com/dimych',
-//            twitter: 'https://twitter.com/@sdf',
-//            instagram: 'instagra.com/sds', …}
-//     fullName: "samurai dimych"
-//     lookingForAJob: true
-//     lookingForAJobDescription: "не ищу, а дурачусь"
-//     photos: {small: 'https://social-network.samuraijs.com/activecontent/images/users/2/user-small.jpg?v=0',
-//          large: 'https://social-network.samuraijs.com/activecontent/images/users/2/user.jpg?v=0'}
-//     userId: 2

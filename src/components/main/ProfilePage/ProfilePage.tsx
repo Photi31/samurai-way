@@ -7,14 +7,14 @@ import {Posts, PostType} from "../Posts/Posts";
 
 
 type  ProfilePageType = {
-    profile: ProfileType
+    profile: ProfileType | null
     posts: Array<PostType>
     status: string
     updateStatus: (status: string) => void
 }
 
 
-export function ProfilePage (props: ProfilePageType) {
+export function ProfilePage(props: ProfilePageType) {
 
     return (
         <main className={s.main}>
@@ -23,8 +23,10 @@ export function ProfilePage (props: ProfilePageType) {
                      status={props.status}
                      updateStatus={props.updateStatus}
             />
-            <SendMyPostContainer />
+            <SendMyPostContainer/>
             <Posts posts={props.posts}/>
         </main>
+
+
     )
 }

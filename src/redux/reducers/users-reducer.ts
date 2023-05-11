@@ -2,6 +2,7 @@ import {UserType} from "../../components/Users/Users";
 import {ActionType} from "../store";
 import {usersAPI} from "../../api/api";
 import {Dispatch} from "redux";
+import {changePreloaderStatus} from "./preloaderReducer";
 
 export type InitialStateType = {
     users: Array<UserType>
@@ -21,8 +22,8 @@ const initialState = {
 export type FollowAT = ReturnType<typeof follow>
 export type UnfollowAT = ReturnType<typeof unfollow>
 export type SetAT = ReturnType<typeof setUsers>
-export type setCurrentPageAT =ReturnType<typeof setCurrentPage>
-export type ToggleFollowingProgressAT =ReturnType<typeof toggleFollowingProgress>
+export type setCurrentPageAT = ReturnType<typeof setCurrentPage>
+export type ToggleFollowingProgressAT = ReturnType<typeof toggleFollowingProgress>
 
 export const usersReducer = (state: InitialStateType = initialState,
                              action: ActionType): InitialStateType => {
@@ -55,29 +56,32 @@ export const usersReducer = (state: InitialStateType = initialState,
     }
 }
 
-export const follow = (userID: string) => ({ type: 'FOLLOW', userID } as const)
-export const unfollow = (userID: string) => ({ type: 'UNFOLLOW', userID} as const)
-export const setUsers = (initialState: InitialStateType) => ({ type: 'SET-USERS', initialState} as const)
+export const follow = (userID: string) => ({type: 'FOLLOW', userID} as const)
+export const unfollow = (userID: string) => ({type: 'UNFOLLOW', userID} as const)
+export const setUsers = (initialState: InitialStateType) => ({type: 'SET-USERS', initialState} as const)
 export const setCurrentPage = (currentPage: number) => ({type: 'SET-CURRENT-PAGE', currentPage} as const)
 export const toggleFollowingProgress = (isFetching: boolean, userId: string) => {
     return {type: 'TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId} as const
 }
 
 export const getUsers = (currentPage: number) => (dispatch: Dispatch<ActionType>) => {
-        dispatch(setCurrentPage(currentPage))
-        usersAPI.getUsers(currentPage)
-            .then(data => {
-                dispatch(setUsers({
-                    users: data.items,
-                    pageSize: data.items.length,
-                    totalUsersCount: data.totalCount,
-                    currentPage: currentPage,
-                    followingProgress: []
-                }))
-            })
+    dispatch(setCurrentPage(currentPage))
+    dispatch(changePreloaderStatus(true))
+    usersAPI.getUsers(currentPage)
+        .then(data => {
+            dispatch(setUsers({
+                users: data.items,
+                pageSize: data.items.length,
+                totalUsersCount: data.totalCount,
+                currentPage: currentPage,
+                followingProgress: []
+            }))
+        })
+        .finally(() => dispatch(changePreloaderStatus(false)))
 }
 export const followUser = (userId: string) => (dispatch: Dispatch<ActionType>) => {
     dispatch(toggleFollowingProgress(true, userId))
+    dispatch(changePreloaderStatus(true))
     usersAPI.follow(userId)
         .then(data => {
             if (data.resultCode === 0) {
@@ -85,9 +89,11 @@ export const followUser = (userId: string) => (dispatch: Dispatch<ActionType>) =
             }
             dispatch(toggleFollowingProgress(false, userId))
         })
+        .finally(() => dispatch(changePreloaderStatus(false)))
 }
 export const unfollowUser = (userId: string) => (dispatch: Dispatch<ActionType>) => {
     dispatch(toggleFollowingProgress(true, userId))
+    dispatch(changePreloaderStatus(true))
     usersAPI.unfollow(userId)
         .then(data => {
             if (data.resultCode === 0) {
@@ -95,4 +101,5 @@ export const unfollowUser = (userId: string) => (dispatch: Dispatch<ActionType>)
             }
             dispatch(toggleFollowingProgress(false, userId))
         })
+        .finally(() => dispatch(changePreloaderStatus(false)))
 }

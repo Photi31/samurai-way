@@ -3,30 +3,14 @@ import {ActionType, ProfilePagePropsType} from "../store";
 import {ProfileType} from "../../components/main/ProfilePage/Profile";
 import {profileAPI} from "../../api/api";
 import {Dispatch} from "redux";
+import {changePreloaderStatus} from "./preloaderReducer";
 
 export type AddPostAT = ReturnType<typeof addPostActionCreator>
 export type setUserProfileAT = ReturnType<typeof setUserProfile>
 export type setUserStatusAT = ReturnType<typeof setUserStatus>
 
 const initialState: ProfilePagePropsType = {
-    profile: {
-        aboutMe: 'I\'m frontend developer',
-        contacts: {
-            facebook: null,
-            website: null,
-            vk: null,
-            twitter: null,
-            instagram: null
-        },
-        fullName: 'Svetlana N.',
-        lookingForAJob: true,
-        lookingForAJobDescription: 'I want to job in beautiful company',
-        photos: {
-            small: "https://cs12.pikabu.ru/post_img/big/2022/04/16/4/1650082940124498859.jpg",
-            large: null
-        },
-        userId: 28461
-    },
+    profile: null,
     posts: [
         {_id: v1(), title: 'Post 1', descr: "This is first post about me..."},
         {_id: v1(), title: 'Post 2', descr: "This is post about my family..."},
@@ -63,22 +47,28 @@ export const setUserProfile = (profile: ProfileType) => ({type: 'SET-USER-PROFIL
 export const setUserStatus = (status: string) => ({type: 'SET-USER-STATUS', status} as const)
 
 export const getProfile = (userId: string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(changePreloaderStatus(true))
     profileAPI.getProfile(userId)
         .then(data => {
             console.log('profile: ', data)
             dispatch(setUserProfile(data))
         })
+        .finally( () => dispatch(changePreloaderStatus(false)))
 }
 export const getStatus = (userId: string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(changePreloaderStatus(true))
     profileAPI.getStatus(userId)
         .then(data => {
             console.log(data)
             dispatch(setUserStatus(data))
         })
+        .finally( () => dispatch(changePreloaderStatus(false)))
 }
 export const updateStatus = (status: string) => (dispatch: Dispatch<ActionType>) => {
+    dispatch(changePreloaderStatus(true))
     profileAPI.updateStatus(status)
         .then(data => {
             if (data.resultCode === 0) dispatch(setUserStatus(status))
         })
+        .finally( () => dispatch(changePreloaderStatus(false)))
 }
