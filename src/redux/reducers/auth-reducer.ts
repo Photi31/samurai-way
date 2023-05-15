@@ -36,20 +36,20 @@ export const setAuthUserData = (userId: string | null, email: string | null, log
 )
 
 export const getAuthUser = () => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: Dispatch<ActionType>) => {
         dispatch(changePreloaderStatus(true))
-        authAPI.me()
+        return authAPI.me()
             .then(data => {
                 if (data.resultCode === 0) {
                     const {id, login, email} = data.data
                     dispatch(setAuthUserData(id, email, login, true))
                 }
+                dispatch(changePreloaderStatus(false))
             })
-            .finally( () => dispatch(changePreloaderStatus(false)))
     }
 }
 export const login = (email: string, password: string, rememberMe: boolean) => {
-    return (dispatch: Dispatch) => {
+    return (dispatch: Dispatch<ActionType>) => {
         dispatch(changePreloaderStatus(true))
         authAPI.login(email, password, rememberMe)
             .then(data => {
